@@ -10,25 +10,28 @@
 * Francesco Dotti (mat. _945232_)
 
 
-1. [X] [**INTRODUCTION**](#1)
+1. [**INTRODUCTION**](#1)
     1. [Purpose](#1.1)
     2. [Scope](#1.2)
     3. [Definitions, Acronyms, Abbreviations](#1.3)
     4. [Revision history](#1.4)
     5. [Reference Documents](#1.5)
     6. [Document Structure](#1.6)
-2. [ ] [**OVERALL DESCRIPTION**](#2)
-    1. [Product perspective: here we include further details on the shared phenomena and a domain model (class diagrams and statecharts)](#2.1)
-    2. [Product functions: here we include the most important requirements](#2.2)
-    3. [User characteristics: here we include anything that is relevant to clarify their needs](#2.3)
-    4. [Assumptions, dependencies and constraints: here we include domain assumptions](#2.4)
-3. [ ] [**SPECIFIC REQUIREMENTS**: Here we include more details on all aspects in Section 2 if they can be useful for the development team.](#3)
+2. [**OVERALL DESCRIPTION**](#2)
+    1. [Product perspective](#2.1)
+    2. [Product functions](#2.2)
+    3. [User characteristics](#2.3)
+    4. [Assumptions, dependencies and constraints](#2.4)
+3. [**SPECIFIC REQUIREMENTS**](#3)
     1. [External Interface Requirements](#3.1)
         1. [User Interfaces](#3.1.1)
         2. [Hardware Interfaces](#3.1.2)
         3. [Software Interfaces](#3.1.3)
         4. [Communication Interfaces](#3.1.4)
-    2. [Functional Requirements: Definition of use case diagrams, use cases and associated sequence/activity diagrams, and mapping on requirements](#3.2)
+    2. [Functional Requirements](#3.2)
+        1. [Scenarios](#3.2.1)
+        2. [Use cases](#3.2.2)
+        3. [Requirements](#3.2.3)
     3. [Performance Requirements](#3.3)
     4. [Design Constraints](#3.4)
         1. [Standards compliance](#3.4.1)
@@ -40,9 +43,9 @@
         3. [Security](#3.5.3)
         4. [Maintainability](#3.5.4)
         5. [Portability](#3.5.5)
-4. [ ] [**FORMAL ANALYSIS USING ALLOY**: in this section you will include your Alloy model. We require you to comment on the model by discussing the purpose of the model, what you can prove with it and why what you prove is important given the problem at hand. You are also required to show one or more worlds obtained by running your model.](#4)
-5. [ ] [**EFFORT SPENT**: In this section you will include information about the number of hours each group member has worked for this document.](#5)
-6. [ ] [**REFERENCES**](#6)
+4. [**FORMAL ANALYSIS USING ALLOY**](#4)
+5. [**EFFORT SPENT**](#5)
+6. [**REFERENCES**](#6)
 
 <a name="1"></a>
 # 1 INTRODUCTION
@@ -68,13 +71,14 @@ Furthermore thanks to the increased number of ticket the municipality will have 
 ## 1.3 Definitions, Acronyms, Abbreviations
 - **FOSS**: free and open source software
 - **S2B**: software to be
-- **Mine**: <!-- TODO: definition  -->
-- **Violation**: 
-- **Unsafe area**:
+- **Mine**: to process data for obtaining new data
+- **Violation**: an infringement of the rules
+- **Unsafe area**: area where often happen violation and accident
 - **OSM**: Open Street Map 
 
 <a name="1.4"></a>
 ## 1.4 Revision history
+ - Version 1.0 
 
 <a name="1.5"></a>
 ## 1.5 Reference Documents
@@ -97,13 +101,23 @@ The non-functional requirements are defined through performance requirements, de
 # 2 OVERALL DESCRIPTION
 
 <a name="2.1"></a>
-## 2.1 Product perspective: here we include further details on the shared phenomena and a domain model (class diagrams and statecharts)
+## 2.1 Product perspective: here we include further details on the shared phenomena and a domain model
 
 The following high level class diagram provides a model of the application domain: it contains only few essential attributes of the various classes and does not include every class that will be necessary to define the Model (useful data) of the system.
 
 ![Uml](images/class-diagram.png)
 
+<!-- ### World and Machine
+
+| Phenomenon | Shared | Who controls it  |
+| --- | --- | --- |
+|  |  |  |
+|  |  |  |
+|  |  |  | -->
+
+
 Now we are going to analyze some critical aspects of the application, modeling their behaviors and showing  the  evolution  over  time  of  their  states  through  appropriate  state  diagrams,  which  are reported below.
+
 <a name="2.2"></a>
 ## 2.2 Product functions: here we include the most important requirements
 
@@ -122,7 +136,7 @@ The S2B must gather information about accidents that the municipality will provi
 ## 2.3. User characteristics: here we include anything that is relevant to clarify their needs
 
 ### 1. Standard User
-Common citizien who signs up to use the SafeStreet service. There are no constraints or age limitations, anyone can join.
+Common citizen who signs up to use the SafeStreet service. There are no constraints or age limitations, anyone can join.
 The user is a person who use the app to report a parking violation.
 ### 2. Traffic Warden
 A police officer. The sign up process is made in collaboration with the authorities to guarantee their identity. He has to verify the violation.
@@ -157,16 +171,28 @@ Certified municipality's clerks who can access the suggestion for possible inter
 ### 3.1.4 Communication Interfaces 
 <a name="3.2"></a>
 ## 3.2 Functional Requirements: Definition of use case diagrams, use cases and associated sequence/activity diagrams, and mapping on requirements
-### Scenarios:
-- Marco is tired of people parking on the sidewalk...
-- Giuseppe the assessor wants to know where public interventions are most needed...
-- Paolo the traffic warden commander wants to improve his operate...
-- Omar the Mayor wants to raise more money...
+
+<a name="3.2.1"></a>
+### 3.2.1 Scenarios:
+
+- ### Scenario 1  
+  Marco is tired of people parking on the sidewalk near his shop, so instead of shouting or starting a discussion with the violator, he decides to report the violation to SafeStreet using the application on his smartphone. He takes a photo of the violation and sends it, a lot better than calling emergency number to only report a parking violation.
+
+- ### Scenario 2  
+  The budget of the municipality of Milan is negative, therefore, Omar, mayor of Milan, needs to find a way to raise more money. After a meeting with the head of the municipal police, who wants to improve his operate, he learns about SafeStreets and decides to adopt it in his city. Thanks to the application the traffic wardens will be more efficient and the number of traffic tickets should increase accordingly.
+ 
+- ### Scenario 3  
+   Giuseppe the assessor wants to know where public interventions are most needed. Thanks to SafeStreet he can check out the suggestions provided by the advanced algorithm developed by SafeStreet. 
+
+- ### Scenario 4  
+  Award-winning traffic warden Nicola was commissioned by his superiors to use the SafeStreets application to get the notifications about traffic violations occurring near his position.
+  Thanks to the application he can forget about imprecise indications and can now precisely reach the position to control the situation.
 
 ### Use Case Diagram
 ![Use Case Diagram](images/UseCaseDiagram.png)
 
-### Use cases:
+<a name="3.2.2"></a>
+### 3.2.2 Use cases:
 | Name | SignUp |  
 | --- | --- |
 | **Actor** |  User |
@@ -182,7 +208,6 @@ Certified municipality's clerks who can access the suggestion for possible inter
 | **Events flow** | 1. The user clicks ”Log In”. <br> 2. The user enters username and password. <br> 3. The user decides if he wants to be remembered by the system clicking on the relative checkbox.<br> 4. The user clicks ”Confirm”. <br> 5. If the user chose to be remembered, next time the use case ends without asking username and password.  |
 | **Exit condition** | User is logged in and in the home page of the application with the possibility to use function based on his account privileges. |
 | **Exception** | 1. The user enters invalid data. <br> 2. The user leaves blank at least one field. <br> In both cases the system warns the user suggesting him to insert correct data. <br> 3. No internet connection. The system suggests to check network configuration or to reconnect. |
-
 
 | Name | Report Violation |  
 | --- | --- |
@@ -224,15 +249,8 @@ Certified municipality's clerks who can access the suggestion for possible inter
 | **Exit condition** | Suggestions are updated. |
 | **Exception** | 1. No internet connection. The system suggests to check network configuration or to reconnect. <br> 2. Municipality's server is not reachable. |
 
-| Name | |  
-| --- | --- |
-| **Actor** |  |
-| **Entry condition** | |
-| **Events flow** | |
-| **Exit condition** | |
-| **Exception** | |
-
-### 3.2.2 Requirements
+<a name="3.2.3"></a>
+### 3.2.3 Requirements
 In this section we show that the requirements ensure the satisfaction of the goals in the context of the domain assumptions: the list of requirements and domain assumptions under each goal have this purpose.
 
 **[G1] The system must allow users to send a report of violations** 
@@ -295,8 +313,6 @@ In the following table we are going to map, for	each requirement, all the use ca
 | R16 | Cross data to suggests possbile interventions |
 | R17 | Visualize suggestions for possible interventions |
 
-
-
 <a name="3.3"></a>
 ## 3.3 Performance Requirements
 The backend system must be able to serve requests of many clients simultaneously and be scalable in order to handle without problems the high volume of requests that will come with the increasing number of subscriptions. Especially if the S2B will be adopted in multiple towns.<br>
@@ -349,9 +365,214 @@ Native apps for Android and iOS will be available. (As defined in the [Software 
 
 <a name="4"></a>
 # 4 FORMAL ANALYSIS USING ALLOY
- In this section you will include your Alloy model. We require you to comment on the model by discussing the purpose of the model, what you can prove with it and why what you prove is important given the problem at hand. You are also required to show one or more worlds obtained by running your model
+
+Here is an analysis	of some critical aspects of the	system using Alloy. Some of the features of the system are specified and
+explained in more details, in particular the focus is on the following constraints:
+
+
+```
+--signatures
+
+sig FiscalCode{}
+sig Matricula{}
+sig Username{}
+sig Password{}
+abstract sig User{
+    username: one Username,
+    password: one Password
+}
+sig Citizen extends User{
+    fiscalCode: one FiscalCode
+}
+
+sig TrafficWarden extends User{
+    matricula: one Matricula
+}
+
+sig Location{
+    latitude: one Int,
+    longitude: one Int
+}
+
+--{latitude >= -90 and latitude <= 90 and longitude >= -180 and longitude <= 180}
+--NB: scaled values for simplicity
+{latitude >= -3 and latitude <= 3 and longitude >= -6 and longitude <= 6 }
+
+abstract sig ParkingReportStatus {}
+sig Approved , Pending , Rejected extends ParkingReportStatus {}
+
+sig LicensePlate{}
+
+sig ViolationType{}
+
+sig ViolationPicture{}
+
+sig ParkingReport{
+    licensePlate: one LicensePlate,
+    violationType: one ViolationType,
+    violationPicture: one ViolationPicture,
+    timestamp: one Int,
+    parkingLocation: one Location,
+    citizen: one Citizen,
+    takeOnBy: lone TrafficWarden,
+    status: one ParkingReportStatus
+}
+{ timestamp >= 0 }
+
+sig Message{}
+
+sig Suggestion{
+    suggestionLocation: one Location,
+    message: one Message
+}
+
+--facts
+
+--All FiscalCodes have to be associated to a Citizen
+fact FiscalCodeCitizenConnection{
+    all fc: FiscalCode | some c: Citizen | fc in c.fiscalCode
+}
+
+--All Matricola have to be associated to a TrafficWarden
+fact MatricolaTrafficWardenConnection{
+    all m: Matricula | some tw: TrafficWarden | m in tw.matricula
+}
+
+--All Usernames have to be associated to a User
+fact UsernameUserConnection{
+    all u: Username | some r: User | u in r.username
+}
+
+
+--All Passwords have to be associated to a User
+fact PasswordUserConnection{
+    all p: Password | some r: User | p in r.password
+}
+
+
+--Every User has a unique username
+fact NoSameUsername {
+    no disj u1,u2: User | u1.username = u2.username
+}
+
+--There are no ParkingReport on the same vehicle within 1 hour in the same location
+fact NoParkingReportWithin1HourInTheSameLocation {
+    no disj pr1,pr2 : ParkingReport | pr1.licensePlate = pr2.licensePlate and pr1.parkingLocation = pr2.parkingLocation and 
+    (pr1.timestamp < pr2.timestamp and (pr1.timestamp + 3600) > pr2.timestamp)
+}
+
+--Every User has a unique FiscalCode
+fact NoSameFiscalCode {
+    no disj c1,c2 : Citizen | c1.fiscalCode = c2.fiscalCode
+}
+
+
+--Every TrafficWarden has a unique Matricula
+fact NoSameMatricula {
+    no disj t1,t2 : TrafficWarden | t1.matricula = t2.matricula
+}
+
+--All LicensePlate have to be associated to a ParkingReport
+fact LicensePlateParkingReportConnection{
+    all lp: LicensePlate | some pr: ParkingReport | lp in pr.licensePlate
+}
+
+--All ViolationPicture have to be associated to a ParkingReport
+fact ViolationPictureParkingReportConnection{
+    all vp: ViolationPicture | some pr: ParkingReport | vp in pr.violationPicture
+}
+
+--All Message have to be associated to a Suggestion
+fact MessageSuggestionConnection{
+    all m: Message | some s: Suggestion | m in s.message
+}
+
+--All Location have to be associated to a Suggestion or a ParkingReport
+fact LocationSuggestionParkingReportConnection{
+    all l: Location | (some s: Suggestion | l in s.suggestionLocation) or (some pr: ParkingReport | l in pr.parkingLocation)
+}
+
+
+--All ParkingReportStatus have to be associated to a ParkingReport
+fact ParkingReportStatusParkingReportConnection{
+    all prs: ParkingReportStatus | some pr: ParkingReport | prs in pr.status
+}
+
+--Status in ParkingReport have to be Pending if there is no takeOnBy
+fact ParkingReportStatusPendingIfNoTakeOn{
+    all pr: ParkingReport | pr.takeOnBy = none implies pr.status = Pending
+}
+
+
+--Every ParkingReport has a unique Picture
+fact NoSamePicture {
+    no disj p1,p2: ParkingReport | p1.violationPicture = p2.violationPicture
+}
+
+--Assertions
+
+--It should not be possible to have different ParkingReports on the same vehicle in the same location in the range of a hour
+assert noParkingReportOnSameVehicleWithinAnHourInTheSameLocation {
+    no disj p1,p2: ParkingReport | p1.licensePlate = p2.licensePlate 
+    and ( p1.timestamp - p2.timestamp <= 3600 ) 
+    and p1.parkingLocation = p2.parkingLocation
+}
+
+--check noParkingReportOnSameVehicleWithinAnHourInTheSameLocation for 3
+
+
+-- Predicates
+pred world1	{
+    #ParkingReport	=	1
+    #TrafficWarden = 1
+    #Citizen = 1
+    #Suggestion = 0
+}
+
+pred world2	{
+    #ParkingReport	=	1
+    #TrafficWarden = 0
+    #Citizen = 1
+    #Suggestion = 0
+}
+
+pred world3	{
+    #ParkingReport	= 0
+    #TrafficWarden = 0
+    #Citizen = 0
+    #Suggestion = 1
+}
+
+run world1 for 3
+run world2 for 3
+run world3 for 3
+```
+
+## Worlds generated
+
+- ### World 1
+![World 1](images/alloy_world1.jpg)
+
+- ### World 2
+In this world without traffic wardens, parking report status can only be pending. None can take on the requests.
+![World 1](images/alloy_world2.jpg)
+
+- ### World 3
+![World 1](images/alloy_world3.jpg)
+
 <a name="5"></a>
 # 5 EFFORT SPENT 
- In this section you will include information about the number of hours each group member has worked for this document
+
+The statistics about commits and code contribution are available on GitHub however commits are actually common as most of the work has been done using the visual studio code live share plugin. 
+
+- ###   10530016    Federico Cazzola ([@f-cazzola](https://github.com/f-cazzola))<br>federico.cazzola@mail.polimi.it
+
+    27 hours
+
+- ###   10530612    Francesco Dotti ([@xX-1337-Xx](https://github.com/xX-1337-Xx))<br>francesco3.dotti@mail.polimi.it
+
+    28 hours
+
+
 <a name="6"></a>
 # 6 REFERENCES
