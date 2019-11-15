@@ -55,10 +55,14 @@
 This document represents the Requirement Analysis and Specification Document (RASD). Goals of this document are to completely describe the system in terms of functional and non-functional requirements, analyze the real needs of the customer in order to model the system, show the constraints and the limit of the software and indicate the typical use cases that will occur after the release. This document is addressed to the developers who have to implement the requirements and could be used as a contractual basis.
 ### 1.1.2
 The goals of the projects are:
-- [G1](#G1) The system must allow users to send a report of violations
-- [G2](#G2) The system must allow all users to mine the information that has been received by highlighting the streets (or the areas) with the highest frequency of violations
-- [G3](#G3) The system must allow authorities to mine the information that has been received to see the ranking of vehicles that commit more violations
-- [G4](#G4) The system must cross the information provided by the municipality about the accidents with its own data to identify potentially unsafe areas and suggest possible interventions.
+<a name="G1"></a>
+- [G1] The system must allow users to send a report of violations
+<a name="G2"></a>
+- [G2] The system must allow all users to mine the information that has been received by highlighting the streets (or the areas) with the highest frequency of violations
+<a name="G3"></a>
+- [G3] The system must allow authorities to mine the information that has been received to see the ranking of vehicles that commit more violations
+<a name="G4"></a>
+- [G4] The system must cross the information provided by the municipality about the accidents with its own data to identify potentially unsafe areas and suggest possible interventions.
 
 <a name="1.2"></a>
 ## 1.2 Scope
@@ -74,16 +78,21 @@ Furthermore thanks to the increased number of ticket the municipality will have 
 - **Mine**: to process data for obtaining new data
 - **Violation**: an infringement of the rules
 - **Unsafe area**: area where often happen violation and accident
-- **OSM**: Open Street Map 
+- **API**: Application programming interface
+- **NIST**: National Institute of Standards and Technology
+- **RFC**: Request for Comments
 
 <a name="1.4"></a>
 ## 1.4 Revision history
- - Version 1.0 
+ - **Version 1.0** <br>
+ Inital version
+ - **Version 1.1** <br>
+   Update diagrams, shared phenomenon table <br>
 
 <a name="1.5"></a>
 ## 1.5 Reference Documents
 - Specification document: “SafeStreets Mandatory Project Assignment” 	
-- [ISO/IEC/IEEE 29148:2018](https://sci-hub.tw/https://ieeexplore.ieee.org/document/8559686)
+- [ISO/IEC/IEEE 29148:2018](https://ieeexplore.ieee.org/document/8559686)
 - [UML diagrams](https://www.uml-diagrams.org/)
 - [Alloy documentation](http://alloy.lcs.mit.edu/alloy/documentation/quickguide/seq.html)
   
@@ -101,25 +110,55 @@ The non-functional requirements are defined through performance requirements, de
 # 2 OVERALL DESCRIPTION
 
 <a name="2.1"></a>
-## 2.1 Product perspective: here we include further details on the shared phenomena and a domain model
+## 2.1 Product perspective
 
 The following high level class diagram provides a model of the application domain: it contains only few essential attributes of the various classes and does not include every class that will be necessary to define the Model (useful data) of the system.
 
 ![Uml](images/class-diagram.png)
 
-<!-- ### World and Machine
+### World and Machine
 
 | Phenomenon | Shared | Who controls it  |
 | --- | --- | --- |
-|  |  |  |
-|  |  |  |
-|  |  |  | -->
+| User wants to report a parking violation | N | W |
+| User takes a photo of the car commiting a violation | Y | W |
+| User submits a report | Y | W |
+| The system recognizes the license plate | N | M | 
+| User signs up| Y | W |
+| The system verifies and accept / refuse data inserted to registrate | N | M |
+| User logs in on the application | Y | W |
+| The system verifies and accept / refuse data inserted to log in| N | M |
+| Traffic warden wants to find a car parked illegaly | N | W |
+| Traffic warden sees a notification about a possible violation| Y | M |
+| Traffic warden confirms a violation | Y | W |
+| The system gets and stores data about a violation | N | M |
+| The system crosses his data with municipality's data | N | M |
+| The system runs an algorithm to generate possible suggestions | N | M |
+| A municipality's clerk wants to the see suggestions for possible interventions | N | W |
+| Municipality's clerk search for the area he's insterested about the suggestions | Y | W |
+| The system shows information about possible informations | Y | M |
+| The system shows the map | Y | M |
 
+### State diagrams
 
-Now we are going to analyze some critical aspects of the application, modeling their behaviors and showing  the  evolution  over  time  of  their  states  through  appropriate  state  diagrams,  which  are reported below.
+Here are reported some state diagrams which are helpful to some functionalities of the application:
+
+- **State Diagram 1**
+
+![sd1](images/state-diagram-report.png)
+
+###### Note: "Similar report" is formally defined in the alloy section as noParkingReportOnSameVehicleWithinAnHourInTheSameLocation
+
+- **State Diagram 2**
+
+![sd2](images/state-diagram2.png)
+
+- **State Diagram 3**
+
+![sd3](images/state-diagram3.png)
 
 <a name="2.2"></a>
-## 2.2 Product functions: here we include the most important requirements
+## 2.2 Product functions
 
 Here it's Provided a summary of the major functions that the software will perform.
 
@@ -133,7 +172,7 @@ The S2B must gather all the reports of the parking violation and elaborate them 
 The S2B must gather information about accidents that the municipality will provide and cross them with his parking violation reports to generate new data about potentially unsafe area. Those potentially unsafe area will be sent to the municipality which will take action.
 
 <a name="2.3"></a>
-## 2.3. User characteristics: here we include anything that is relevant to clarify their needs
+## 2.3. User characteristics
 
 ### 1. Standard User
 Common citizen who signs up to use the SafeStreet service. There are no constraints or age limitations, anyone can join.
@@ -145,7 +184,7 @@ A police officer. The sign up process is made in collaboration with the authorit
 Certified municipality's clerks who can access the suggestion for possible interventions.
 
 <a name="2.4"></a>
-## 2.4 Assumptions, dependencies and constraints: here we include domain assumptions
+## 2.4 Assumptions, dependencies and constraints
 - D1: All traffic wardens have a smartphone.
 - D2: Each fiscal code number is unique.
 - D3: The municipality will provide only well formatted report of accidents.
@@ -170,7 +209,7 @@ Certified municipality's clerks who can access the suggestion for possible inter
 <a name="3.1.4"></a>
 ### 3.1.4 Communication Interfaces 
 <a name="3.2"></a>
-## 3.2 Functional Requirements: Definition of use case diagrams, use cases and associated sequence/activity diagrams, and mapping on requirements
+## 3.2 Functional Requirements
 
 <a name="3.2.1"></a>
 ### 3.2.1 Scenarios:
@@ -193,6 +232,7 @@ Certified municipality's clerks who can access the suggestion for possible inter
 
 <a name="3.2.2"></a>
 ### 3.2.2 Use cases:
+
 | Name | SignUp |  
 | --- | --- |
 | **Actor** |  User |
@@ -200,6 +240,9 @@ Certified municipality's clerks who can access the suggestion for possible inter
 | **Events flow** | 1. The user chooses the “Sign up” option.	<br> 2. The user fills the mandatory fields. <br> 3.The user fills the optional fields with not mandatory data.	<br> 4. The user chooses the confirmation option. <br> 5.The system save the data.|
 | **Exit condition** | The user is registered and the system has his data stored  |
 | **Exception** | 1. The user was already registered. In this case the system warns the user and suggests him/her to do the login.<br> 2.   The username is already taken. In this case the system warns the user and suggests him to change the username. <br> 3. The username doesn’t fill all the mandatory fields. In this case the system warns the user and notifies him which fields were left unfilled. <br> 4. No internet connection. The system suggests to check network configuration or to reconnect. |
+
+<br>
+<br>
 
 | Name | Log in |  
 | --- | --- |
@@ -209,6 +252,9 @@ Certified municipality's clerks who can access the suggestion for possible inter
 | **Exit condition** | User is logged in and in the home page of the application with the possibility to use function based on his account privileges. |
 | **Exception** | 1. The user enters invalid data. <br> 2. The user leaves blank at least one field. <br> In both cases the system warns the user suggesting him to insert correct data. <br> 3. No internet connection. The system suggests to check network configuration or to reconnect. |
 
+<br>
+<br>
+
 | Name | Report Violation |  
 | --- | --- |
 | **Actor** | User, Traffic Warden |
@@ -216,6 +262,9 @@ Certified municipality's clerks who can access the suggestion for possible inter
 | **Events flow** | 1. The user chooses the “Report” option. <br> 2. The user selects the violation type.<br> 3. The user takes a picture of the violation. <br> 4. The system shows the license plate. <br> 5. The user checks if the license plate of the vehicle recognized from the picture is correct otherwise edits it. <br> 6. The system shows the location provided by the GPS on a map. <br> 7. The user checks if the location provided by the app is correct otherwise fixs it. <br> 8. The user uploads the data clicking on "Upload" <br> 9. The system sends a notification to the traffic warden. <br> 10. The traffic warden selects the report from the list of reports. <br> 11. The traffic warden clicks on "Take on". <br> 12. The traffic warden checks if the violation exists, if it does clicks on "Verify" otherwise clicks on "Fail" |
 | **Exit condition** | The traffic warden has checked if the violation exist |
 | **Exception** | 1. No internet connection. The system suggests to check network configuration or to reconnect. |
+
+<br>
+<br>
 
 | Name | Visualize public available data on the map |  
 | --- | --- |
@@ -225,6 +274,9 @@ Certified municipality's clerks who can access the suggestion for possible inter
 | **Exit condition** | The requested information is showed on the map |
 | **Exception** | 1. No internet connection. The system suggests to check network configuration or to reconnect. |
 
+<br>
+<br>
+
 | Name | Visualize ranking of vehicles that commit more violations |  
 | --- | --- |
 | **Actor** |  Traffic Warden |
@@ -233,6 +285,9 @@ Certified municipality's clerks who can access the suggestion for possible inter
 | **Exit condition** | The requested information is showed |
 | **Exception** | 1. No internet connection. The system suggests to check network configuration or to reconnect. |
 
+<br>
+<br>
+
 | Name | Visualize suggestions for possible interventions |  
 | --- | --- |
 | **Actor** | Municipality |
@@ -240,6 +295,9 @@ Certified municipality's clerks who can access the suggestion for possible inter
 | **Events flow** | 1. The employee cliks on "Suggestions 4 interventions". <br> 2. The system loads the map of the city and the suggestions for the visualized area. <br> 3. The employee can search for a specific location, view the list of suggestions. <br> 4. If the employee clicks on a particular suggestion he can check its details. |
 | **Exit condition** | The requested suggestion is displayed. |
 | **Exception** | 1. No internet connection. The system suggests to check network configuration or to reconnect. |
+
+<br>
+<br>
 
 | Name | Cross data to suggests possbile interventions |  
 | --- | --- |
@@ -569,7 +627,7 @@ The statistics about commits and code contribution are available on GitHub howev
 
     27 hours
 
-- ###   10530612    Francesco Dotti ([@xX-1337-Xx](https://github.com/xX-1337-Xx))<br>francesco3.dotti@mail.polimi.it
+- ###   10530612    Francesco Dotti ([@dottif](https://github.com/dottif))<br>francesco3.dotti@mail.polimi.it
 
     28 hours
 
