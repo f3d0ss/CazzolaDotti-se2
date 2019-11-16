@@ -304,6 +304,10 @@ The various components communicate via the internet.
 
 ![sd2](images/activity-report-confirmation.png)
 
+#### Visualize public available data on the map
+
+![sd3](images/activity-public-data.png)
+
 <a name="3.2.3"></a>
 ### 3.2.3 Requirements
 In this section we show that the requirements ensure the satisfaction of the goals in the context of the domain assumptions: the list of requirements and domain assumptions under each goal have this purpose.
