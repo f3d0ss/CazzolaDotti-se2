@@ -3,7 +3,7 @@
 
 ![Politecnico di Milano's logo](images/polimi-logo.png)
 <br>
-###### Version 0.1
+###### Version 1.1
 <br>
 
 * Federico Cazzola (mat. _945835_)
@@ -45,7 +45,6 @@
         5. [Portability](#3.5.5)
 4. [**FORMAL ANALYSIS USING ALLOY**](#4)
 5. [**EFFORT SPENT**](#5)
-6. [**REFERENCES**](#6)
 
 <a name="1"></a>
 # 1 INTRODUCTION
@@ -75,6 +74,8 @@ Furthermore thanks to the increased number of ticket the municipality will have 
 ## 1.3 Definitions, Acronyms, Abbreviations
 - **FOSS**: free and open source software
 - **S2B**: software to be
+- **RASD**: Requirements Analysis and Specifications Document  
+- **DD**: Design Document
 - **Mine**: to process data for obtaining new data
 - **Violation**: an infringement of the rules
 - **Unsafe area**: area where often happen violation and accident
@@ -139,23 +140,6 @@ The following high level class diagram provides a model of the application domai
 | The system shows information about possible informations | Y | M |
 | The system shows the map | Y | M |
 
-### State diagrams
-
-Here are reported some state diagrams which are helpful to some functionalities of the application:
-
-- **State Diagram 1**
-
-![sd1](images/state-diagram-report.png)
-
-###### Note: "Similar report" is formally defined in the alloy section as noParkingReportOnSameVehicleWithinAnHourInTheSameLocation
-
-- **State Diagram 2**
-
-![sd2](images/state-diagram2.png)
-
-- **State Diagram 3**
-
-![sd3](images/state-diagram3.png)
 
 <a name="2.2"></a>
 ## 2.2 Product functions
@@ -174,21 +158,21 @@ The S2B must gather information about accidents that the municipality will provi
 <a name="2.3"></a>
 ## 2.3. User characteristics
 
-### 1. Standard User
+### 1. User
 Common citizen who signs up to use the SafeStreet service. There are no constraints or age limitations, anyone can join.
 The user is a person who use the app to report a parking violation.
 ### 2. Traffic Warden
 A police officer. The sign up process is made in collaboration with the authorities to guarantee their identity. He has to verify the violation.
 
-### 3. Municipality
-Certified municipality's clerks who can access the suggestion for possible interventions.
+### 3. Municipality's clerk
+Certified municipality's clerk who can access the suggestion for possible interventions.
 
 <a name="2.4"></a>
 ## 2.4 Assumptions, dependencies and constraints
-- D1: All traffic wardens have a smartphone.
-- D2: Each fiscal code number is unique.
-- D3: The municipality will provide only well formatted report of accidents.
-- D4: The map provider will provide only well formatted data.
+- **D1**: All traffic wardens have a smartphone.
+- **D2**: Each fiscal code number is unique.
+- **D3**: The municipality will provide only well formatted report of accidents.
+- **D4**: The map provider will provide only well formatted data.
 
 <a name="3"></a>
 # 3 SPECIFIC REQUIREMENTS
@@ -197,6 +181,7 @@ Certified municipality's clerks who can access the suggestion for possible inter
 
 <a name="3.1.1"></a>
 ### 3.1.1 User Interfaces
+User interfaces are described in detail in the DD.
 <a name="3.1.2"></a>
 ### 3.1.2 Hardware Interfaces 
 - The software, in order to work, will need an internet connection so the device must have access to the internet.
@@ -208,6 +193,8 @@ Certified municipality's clerks who can access the suggestion for possible inter
 
 <a name="3.1.4"></a>
 ### 3.1.4 Communication Interfaces 
+The various components communicate via the internet.
+
 <a name="3.2"></a>
 ## 3.2 Functional Requirements
 
@@ -301,11 +288,21 @@ Certified municipality's clerks who can access the suggestion for possible inter
 
 | Name | Cross data to suggests possbile interventions |  
 | --- | --- |
-| **Actor** |  |
+| **Actor** | No human actors: SafeStreets backend and Municipality servers |
 | **Entry condition** | Automated activity triggered by a timer |
 | **Events flow** | 1. The system contacts Municipality's database asking to send data if new data is available since the prevoius time. <br> 2. The municipality's DB replies sending the data. <br> 3. The System crosses his data with the received and starts an algorithm that identifies unsafe areas and generates possible interventions. <br> 4. The suggestions list is updated.
 | **Exit condition** | Suggestions are updated. |
 | **Exception** | 1. No internet connection. The system suggests to check network configuration or to reconnect. <br> 2. Municipality's server is not reachable. |
+
+### Sequence / Activity diagrams
+
+#### User reports violation
+
+![ad1](images/activity-report.png)
+
+#### Traffic warden verifies violation report
+
+![sd2](images/activity-report-confirmation.png)
 
 <a name="3.2.3"></a>
 ### 3.2.3 Requirements
@@ -347,7 +344,7 @@ In this section we show that the requirements ensure the satisfaction of the goa
 - **R17** The system must show possible interventions to improve unsafe area.
 
 
-#### Tracebility Matrix
+### Tracebility Matrix
 
 In the following table we are going to map, for	each requirement, all the use cases which are related to it.
 
@@ -428,8 +425,8 @@ Here is an analysis	of some critical aspects of the	system using Alloy. Some of 
 explained in more details, in particular the focus is on the following constraints:
 
 
-```
---signatures
+```alloy
+--signatures---------------------------------------------------------
 
 sig FiscalCode{}
 sig Matricula{}
@@ -484,7 +481,7 @@ sig Suggestion{
     message: one Message
 }
 
---facts
+--Facts--------------------------------------------------------
 
 --All FiscalCodes have to be associated to a Citizen
 fact FiscalCodeCitizenConnection{
@@ -523,7 +520,6 @@ fact NoParkingReportWithin1HourInTheSameLocation {
 fact NoSameFiscalCode {
     no disj c1,c2 : Citizen | c1.fiscalCode = c2.fiscalCode
 }
-
 
 --Every TrafficWarden has a unique Matricula
 fact NoSameMatricula {
@@ -579,7 +575,8 @@ assert noParkingReportOnSameVehicleWithinAnHourInTheSameLocation {
 --check noParkingReportOnSameVehicleWithinAnHourInTheSameLocation for 3
 
 
--- Predicates
+-- Predicates-------------------------------------------------
+
 pred world1	{
     #ParkingReport	=	1
     #TrafficWarden = 1
@@ -629,8 +626,4 @@ The statistics about commits and code contribution are available on GitHub howev
 
 - ###   10530612    Francesco Dotti ([@dottif](https://github.com/dottif))<br>francesco3.dotti@mail.polimi.it
 
-    28 hours
-
-
-<a name="6"></a>
-# 6 REFERENCES
+    29 hours
