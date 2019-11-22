@@ -2,11 +2,15 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 
+% to make table of contents clickable
+\usepackage{hyperref}
+\hypersetup{
+}
+
 \author{CD}
 \title{DD}
 
 \begin{document}
-  \pagenumbering{gobble}
 
 \thispagestyle{empty} % to hide pagenum
 \begin{center}
@@ -47,17 +51,64 @@
 
 \newpage
 
+\thispagestyle{empty} % to hide pagenum
 \tableofcontents
 
 \newpage
   
 \section{Introduction}
 \subsection{Purpose}
+The purpose of this document is to describe how the system will be built, giving specific and technical details about architectural and design decisions. Also implementation, integration and testing plans will be discussed.
+In particular the document presents:
+\begin{itemize}
+	\item The SafeStreet System architecture (its parts and how they interact)
+	\item The runtime behavior
+	\item The design patterns
+	\item User Interfaces
+	\item Implementation, integration and testing plans 
+\end{itemize}
+
 \subsection{Scope}
+The scope of the Safestreets project, as already specified in the RASD, is to give the user the possibility to report traffic violation, in particular, parking violation (eg. parking in a spot reserved for disabled people, parking in an helicopter pitch, parking on the sidewalk). The system will allow the users to select the type of violation leading to differt amount of ticket value.
+The system will help the authorities to identify more infractions and therefore to issue more tickets which should increase the attention and respect of the citizens regarding the traffic rules.
+Furthermore thanks to the increased number of ticket the municipality will have more money to invest in the community. This extra money could be used to do some interventions following the suggestions provided by SafeStreets.
+
 \subsection{Definitions, Acronyms, Abbreviations}
+\subsubsection{Definitions}
+\begin{itemize}
+\end{itemize}
+
+\subsubsection{Acronyms}
+\begin{itemize}
+	\item \textbf{RASD}: Requirements Analysis and Specifications Document  
+	\item \textbf{DD}: Design Document
+\end{itemize}
+
+\subsubsection{Abbreviations}
+\begin{itemize}
+\end{itemize}
+
 \subsection{Revision history}
+\begin{itemize}
+	\item Version 1.0 | First Release
+\end{itemize}
+
 \subsection{Reference Documents}
+\begin{itemize}
+	\item Specification document: “SafeStreets Mandatory Project Assignment” 	
+	\item \href{https://www.uml-diagrams.org}{UML diagrams}
+	\item IEEE Standard for Information Technology—Systems Design—Software Design Descriptions (IEEE Std 1016TM-2009)
+\end{itemize}
+
 \subsection{Document Structure}
+\begin{itemize}
+	\item Chapter 1 is the introduction.
+	\item Chapter 2 provides details about the system architecture, its components and how they interact.
+	\item Chapter 3 describes the UX and shows the user interface providing mockups.
+	\item Chapter 4 describes how the requirements ( defined in the RASD ) are mapped to the design elements defined in this document.
+	\item Chapter 5 presents the implementation, integration and test plan. It shows how the different components of the application are integrated with each other and how they react. Also the testing strategies are described and the risks in the application are analyzed.
+	\item Chapter 6 shows the effort spent by each group member
+\end{itemize}
 
 \section{Architectural design}
 \subsection{Overview: High-level components and their interaction}
@@ -75,5 +126,31 @@
 \section{Implementation, integration and test plan}
 
 \section{Effort spent}
+\begin{center}
+	{\bf Cazzola Federico \href{https://github.com/f-cazzola}{@f-cazzola} }
+	\vspace{2mm}
+
+		\begin{tabular}{p{1.3cm}|p{1.8cm}|p{6.7cm}}
+			\hline
+			\bf Date & \bf \makebox[1.8cm][c]{Hours} & \bf \makebox[6.7cm][c]{Description} \\
+			\hline
+			total    & \makebox[1.8cm][c]{XX}
+		\end{tabular}
+\end{center}
+\vspace{1cm}
+
+\begin{center}
+	{\bf Dotti Francesco \href{https://github.com/dottif}{@dottif} }
+	\vspace{2mm}
+
+		\begin{tabular}{p{1.3cm}|p{1.8cm}|p{6.7cm}}
+			\hline
+			\bf Date & \bf \makebox[1.8cm][c]{Hours} & \bf \makebox[6.7cm][c]{Description} \\
+			\hline
+			15/11/19 & \makebox[1.8cm][c]{1} & \makebox[6.7cm][c]{Initial Structure}\\
+			22/11/19 & \makebox[1.8cm][c]{1.5} & \makebox[6.7cm][c]{Introduction}\\
+			total    & \makebox[1.8cm][c]{2.5}
+		\end{tabular}
+\end{center}
 
 \end{document}
