@@ -69,9 +69,10 @@ In particular the document presents:
 \end{itemize}
 
 \subsection{Scope}
-The scope of the Safestreets project, as already specified in the RASD, is to give the user the possibility to report traffic violation, in particular, parking violation (eg. parking in a spot reserved for disabled people, parking in an helicopter pitch, parking on the sidewalk). The system will allow the users to select the type of violation leading to differt amount of ticket value.
-The system will help the authorities to identify more infractions and therefore to issue more tickets which should increase the attention and respect of the citizens regarding the traffic rules.
-Furthermore thanks to the increased number of ticket the municipality will have more money to invest in the community. This extra money could be used to do some interventions following the suggestions provided by SafeStreets.
+The scope of the Safestreets project, as already specified in the RASD, is to give the user the possibility to report traffic violation, in particular, parking violation (eg. parking in a spot reserved for disabled people, parking in an helicopter pitch, parking on the sidewalk).\\
+The system will allow the users to select the type of violation leading to differt amount of ticket value.\\
+The system will help the authorities to identify more infractions and therefore to issue more tickets which should increase the attention and respect of the citizens regarding the traffic rules.\\
+Furthermore, thanks to the increased number of tickets, the municipality will have more money to invest in the community. This extra money could be used to do some interventions following the suggestions provided by SafeStreets.
 
 \subsection{Definitions, Acronyms, Abbreviations}
 \subsubsection{Definitions}
@@ -110,19 +111,32 @@ Furthermore thanks to the increased number of ticket the municipality will have 
 	\item Chapter 6 shows the effort spent by each group member
 \end{itemize}
 
+\newpage
+
 \section{Architectural design}
 \subsection{Overview: High-level components and their interaction}
-The	application to be developed is a distributed application and the three logic software layers of Presentation (P), that manages the user interaction with the system, Application (A), that handles the business logic of the application and its functionalities, and Data access (D), that manages the information with access to the database, are thought to be divided on three different hardware layers (tiers) that represent a machine (or a group of machines), so that any logic layer has, in principle, its own dedicated hardware: we have a so called three-tier architecture.
-This architecture is thought to guarantee to the system characteristics of scalability and flexibility and to lighten the server side splitting it into two nodes. In particular, the second tier is thought to contain only the business logic to physically separate clients and data to guarantee more safety in accessing to data since the system deals with sensitive data. 
-The following image show the high-level architecture of the system without providing any detail through the ArchiMate modeling language that is lighter than the UML language for such a simple 
-representation.
+The application will be developed with three logic software layers: 
+\begin{itemize}
+	\item Presentation (P) manages the user interaction with the system 
+	\item Application (A) handles the business logic of the application and its functionalities 
+	\item Data access (D) manages the information with access to the database
+\end{itemize}
+These layers are thought to be divided on three different hardware tiers (a machine or a group of machines), so that any logic layer has, in principle, its own dedicated hardware (three-tier architecture).\\
+This architecture should give the system more scalability and flexibility as the server side is split into two nodes.\\
+The second tier must contain only the business logic to physically separate clients and data to guarantee more safety in accessing to data since the system deals with sensitive data. \\
+The following image shows an high-level view of the architecture of the system using the ArchiMate modeling language.\\
+\\
 \begin{figure}[ht]
 \centering
-	\includegraphics[width=1.0\textwidth]{images/tier-structore.png}
-	\caption{Tier Structure}
-	\label{fig:tier-structore}
+	\includegraphics[width=1.0\textwidth]{images/tier-structure.png}
+	\caption{SafeStreets 3-tier architecture}
+	\label{fig:tier-structure}
 \end{figure}
+
+\newpage
+
 \subsection{Component view}
+
 \subsection{Deployment view}
 \subsection{Runtime view}
 \subsection{Component interfaces}
@@ -160,7 +174,9 @@ representation.
 				\hline
 				15/11/19 & \makebox[1.8cm][c]{1} & \makebox[6.7cm][c]{Initial Structure}\\
 				22/11/19 & \makebox[1.8cm][c]{1.5} & \makebox[6.7cm][c]{Introduction}\\
-				total    & \makebox[1.8cm][c]{2.5}
+				23/11/19 & \makebox[1.8cm][c]{1.5} & \makebox[6.7cm][c]{Architectural design}\\
+				\hline
+				total    & \makebox[1.8cm][c]{4}
 			\end{tabular}
 	\end{center}
 
