@@ -75,8 +75,8 @@ Furthermore thanks to the increased number of ticket the municipality will have 
 
 \subsection{Definitions, Acronyms, Abbreviations}
 \subsubsection{Definitions}
-\begin{itemize}
-\end{itemize}
+% \begin{itemize}
+% \end{itemize}
 
 \subsubsection{Acronyms}
 \begin{itemize}
@@ -85,8 +85,8 @@ Furthermore thanks to the increased number of ticket the municipality will have 
 \end{itemize}
 
 \subsubsection{Abbreviations}
-\begin{itemize}
-\end{itemize}
+% \begin{itemize}
+% \end{itemize}
 
 \subsection{Revision history}
 \begin{itemize}
@@ -112,6 +112,16 @@ Furthermore thanks to the increased number of ticket the municipality will have 
 
 \section{Architectural design}
 \subsection{Overview: High-level components and their interaction}
+The	application to be developed is a distributed application and the three logic software layers of Presentation (P), that manages the user interaction with the system, Application (A), that handles the business logic of the application and its functionalities, and Data access (D), that manages the information with access to the database, are thought to be divided on three different hardware layers (tiers) that represent a machine (or a group of machines), so that any logic layer has, in principle, its own dedicated hardware: we have a so called three-tier architecture.
+This architecture is thought to guarantee to the system characteristics of scalability and flexibility and to lighten the server side splitting it into two nodes. In particular, the second tier is thought to contain only the business logic to physically separate clients and data to guarantee more safety in accessing to data since the system deals with sensitive data. 
+The following image show the high-level architecture of the system without providing any detail through the ArchiMate modeling language that is lighter than the UML language for such a simple 
+representation.
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=1.0\textwidth]{images/tier-structore.png}
+	\caption{Tier Structure}
+	\label{fig:tier-structore}
+\end{figure}
 \subsection{Component view}
 \subsection{Deployment view}
 \subsection{Runtime view}
@@ -126,31 +136,32 @@ Furthermore thanks to the increased number of ticket the municipality will have 
 \section{Implementation, integration and test plan}
 
 \section{Effort spent}
-\begin{center}
-	{\bf Cazzola Federico \href{https://github.com/f-cazzola}{@f-cazzola} }
-	\vspace{2mm}
+	\begin{center}
+		{\bf Cazzola Federico \href{https://github.com/f-cazzola}{@f-cazzola} }
+		\vspace{2mm}
 
-		\begin{tabular}{p{1.3cm}|p{1.8cm}|p{6.7cm}}
-			\hline
-			\bf Date & \bf \makebox[1.8cm][c]{Hours} & \bf \makebox[6.7cm][c]{Description} \\
-			\hline
-			total    & \makebox[1.8cm][c]{XX}
-		\end{tabular}
-\end{center}
-\vspace{1cm}
+			\begin{tabular}{p{1.3cm}|p{1.8cm}|p{6.7cm}}
+				\hline
+				\bf Date & \bf \makebox[1.8cm][c]{Hours} & \bf \makebox[6.7cm][c]{Description} \\
+				23/11/19 & \makebox[1.8cm][c]{2} & \makebox[6.7cm][c]{Architectural design}\\
+				\hline
+				total    & \makebox[1.8cm][c]{2}
+			\end{tabular}
+	\end{center}
+	\vspace{1cm}
 
-\begin{center}
-	{\bf Dotti Francesco \href{https://github.com/dottif}{@dottif} }
-	\vspace{2mm}
+	\begin{center}
+		{\bf Dotti Francesco \href{https://github.com/dottif}{@dottif} }
+		\vspace{2mm}
 
-		\begin{tabular}{p{1.3cm}|p{1.8cm}|p{6.7cm}}
-			\hline
-			\bf Date & \bf \makebox[1.8cm][c]{Hours} & \bf \makebox[6.7cm][c]{Description} \\
-			\hline
-			15/11/19 & \makebox[1.8cm][c]{1} & \makebox[6.7cm][c]{Initial Structure}\\
-			22/11/19 & \makebox[1.8cm][c]{1.5} & \makebox[6.7cm][c]{Introduction}\\
-			total    & \makebox[1.8cm][c]{2.5}
-		\end{tabular}
-\end{center}
+			\begin{tabular}{p{1.3cm}|p{1.8cm}|p{6.7cm}}
+				\hline
+				\bf Date & \bf \makebox[1.8cm][c]{Hours} & \bf \makebox[6.7cm][c]{Description} \\
+				\hline
+				15/11/19 & \makebox[1.8cm][c]{1} & \makebox[6.7cm][c]{Initial Structure}\\
+				22/11/19 & \makebox[1.8cm][c]{1.5} & \makebox[6.7cm][c]{Introduction}\\
+				total    & \makebox[1.8cm][c]{2.5}
+			\end{tabular}
+	\end{center}
 
 \end{document}
