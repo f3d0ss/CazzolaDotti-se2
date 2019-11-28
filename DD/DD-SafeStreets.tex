@@ -137,6 +137,20 @@ The following image shows an high-level view of the architecture of the system u
 
 \subsection{Component view}
 
+Random text intro
+
+image
+
+The components's functions are described in the following:
+\begin{itemize}
+	\item \textbf{Router}: it manage all the request coming from the clients forwarding them in the appropriate component for the specific request. 
+	It also use the /textit{Authenticator} component to check if the request come from an authenticate user and in accordance with his permission deny or forward the request.
+	\item \textbf{Authenticator}: it manage the sign up and login request and check if request come from an authenticated user.
+	\item \textbf{ReportManager}: it manage all the request inerent to reports (e.g. get list of report, send new report) and is responsible to check if the new report are consistent and collect reports form the database to pass them to other components.
+	\item \textbf{Highlights area with more violation}: it elaborates the reports to find in which area are committed more violatios.
+	\item \textbf{Ranking vehicles that commit more violations}: it elaborates all the valid reports to create a ranking of the vehicles that committed more violation.
+\end{itemize}
+
 \subsection{Deployment view}
 \subsection{Runtime view}
 \subsection{Component interfaces}
