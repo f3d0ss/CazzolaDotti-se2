@@ -76,13 +76,22 @@ Furthermore, thanks to the increased number of tickets, the municipality will ha
 
 \subsection{Definitions, Acronyms, Abbreviations}
 \subsubsection{Definitions}
-% \begin{itemize}
-% \end{itemize}
+\begin{itemize}
+\item \textbf{Mine}: to process data for obtaining new data
+\item \textbf{Violation}: an infringement of the rules
+\item \textbf{Unsafe}: area area where often happen violation and accident
+\end{itemize}
 
 \subsubsection{Acronyms}
 \begin{itemize}
 	\item \textbf{RASD}: Requirements Analysis and Specifications Document  
 	\item \textbf{DD}: Design Document
+	\item \textbf{FOSS}: free and open source software
+	\item \textbf{S2B}: software to be
+	\item \textbf{API}: Application programming interface
+	\item \textbf{NIST}: National Institute of Standards and Technology
+	\item \textbf{RFC}: Request for Comments
+	\item \textbf{ALPR}: Automated License Plate Recognition
 \end{itemize}
 
 \subsubsection{Abbreviations}
@@ -137,24 +146,69 @@ The following image shows an high-level view of the architecture of the system u
 
 \subsection{Component view}
 
-Random text intro
+In the following diagram only the application server is analyzed in detail
 
-image
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=1.0\textwidth]{images/components-diagram.png}
+	\caption{Component diagram}
+	\label{fig:component-diagram}
+\end{figure}
 
-The components's functions are described in the following:
+Here are described more in detail all the components and interfaces that
+the application server uses to offer its functionalities.
 \begin{itemize}
-	\item \textbf{Router}: it manage all the request coming from the clients forwarding them in the appropriate component for the specific request. 
-	It also use the /textit{Authenticator} component to check if the request come from an authenticate user and in accordance with his permission deny or forward the request.
-	\item \textbf{Authenticator}: it manage the sign up and login request and check if request come from an authenticated user.
-	\item \textbf{ReportManager}: it manage all the request inerent to reports (e.g. get list of report, send new report) and is responsible to check if the new report are consistent and collect reports form the database to pass them to other components.
-	\item \textbf{Highlights area with more violation}: it elaborates the reports to find in which area are committed more violatios.
-	\item \textbf{Ranking vehicles that commit more violations}: it elaborates all the valid reports to create a ranking of the vehicles that committed more violation.
+	\item \textbf{Router}: Manages all the request coming from the clients, forwarding them in the appropriate component for the specific request. 
+	It also interacts with the \textit{Authenticator component} to check if a request comes from an authenticated user and then denies or forwards the request according to the user permissions.
+	\item \textbf{Authenticator}: Manages the sign up and login requests and checks if a request comes from an authenticated user.
+	\item \textbf{ReportManager}: Manages all the requests inerent to reports (e.g. get list of report, send new report) and is responsible to check if the new reports are consistent. Also collects reports form the database to pass them to other components.
+	\item \textbf{Area-Highlighter}: Elaborates the reports to find in which area more violations are committed.
+	\item \textbf{RankingManager}: Elaborates the valid reports to create a ranking of the vehicles that committed more violations.
+	\item \textbf{SuggestionSubsystem}: More in detail:
+		\\
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=1.0\textwidth]{images/SuggestionSubsystem-components-diagram.png}
+	\caption{Component diagram suggestion subsystem}
+	\label{fig:component-suggestion-subsystem}
+\end{figure}
+	\item \textbf{SuggestionDisplayer}: Sends the list of the suggestions
+	\item \textbf{SuggestionMiner}: Gets data from Muncipality's servers and from Safestreets' database and elaborates the suggestions for possible interventions
 \end{itemize}
 
+\newpage
+
 \subsection{Deployment view}
+The following diagram models the physical deployment of artifacts (software components) on nodes (hardware components).
+External services like the Map Provider are not included.
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=1.0\textwidth]{images/deployment_diagram.png}
+	\caption{Deployment diagram}
+	\label{fig:deployment-diagram}
+\end{figure}
+
+	
+\begin{itemize}
+	\item \textbf{Tier 1} Users can access the SafeStreets service using the mobile application available for Android and iOS devices or using the web app (compatible with any modern browser).
+	\item \textbf{Tier 2} The same server machine (for budget reasons)  will contain all the components handling the business and the web logic. The application server handles all the requests coming from the users applications. The web server is just there to make possible to get the web app from the website. The web app will communicate directly with the application server using RESTful API.
+	\item \textbf{Tier 3} The database machine will run MySQL server (a relational database management system). On this machine will be stored all the persistent data.
+\end{itemize}
+
+\newpage
+
 \subsection{Runtime view}
+ 2.4 interactions seq diagrams, more details on diagrams used in RASD (in rasd no breakdown of components) (here we highlights of system respond to interaction from outside, which components? )
+ \\ In this section are shown the sequence diagrams of some features. They are useful to clarify the
+runtime behaviour of the components involved for each functionality.
+
 \subsection{Component interfaces}
+Details on method on interfaces previously indentified, consistency check ( labels messages used in runtimeview consistent with the interfaces of components)
+\\
+use tables ?
 \subsection{Selected architectural styles and patterns}
+list all design decisions (al least references to ...) explain how they're used , variants...
+
 \subsection{Other design decisions}
 
 \section{User interface design}
@@ -189,8 +243,10 @@ The components's functions are described in the following:
 				15/11/19 & \makebox[1.8cm][c]{1} & \makebox[6.7cm][c]{Initial Structure}\\
 				22/11/19 & \makebox[1.8cm][c]{1.5} & \makebox[6.7cm][c]{Introduction}\\
 				23/11/19 & \makebox[1.8cm][c]{1.5} & \makebox[6.7cm][c]{Architectural design}\\
+				29/11/19 & \makebox[1.8cm][c]{0.5} & \makebox[6.7cm][c]{Component view}\\
+				30/11/19 & \makebox[1.8cm][c]{4} & \makebox[6.7cm][c]{Component and Deployment view}\\
 				\hline
-				total    & \makebox[1.8cm][c]{4}
+				total    & \makebox[1.8cm][c]{8.5}
 			\end{tabular}
 	\end{center}
 
