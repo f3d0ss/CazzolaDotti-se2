@@ -86,12 +86,13 @@ Furthermore, thanks to the increased number of tickets, the municipality will ha
 \begin{itemize}
 	\item \textbf{RASD}: Requirements Analysis and Specifications Document  
 	\item \textbf{DD}: Design Document
-	\item \textbf{FOSS}: free and open source software
-	\item \textbf{S2B}: software to be
-	\item \textbf{API}: Application programming interface
+	\item \textbf{FOSS}: Free and Open Source Software
+	\item \textbf{S2B}: Software to Be
+	\item \textbf{API}: Application Programming Interface
 	\item \textbf{NIST}: National Institute of Standards and Technology
 	\item \textbf{RFC}: Request for Comments
 	\item \textbf{ALPR}: Automated License Plate Recognition
+	\item \textbf{JWT}: JSON Web Tokens
 \end{itemize}
 
 \subsubsection{Abbreviations}
@@ -167,6 +168,7 @@ the application server uses to offer its functionalities.
 	\item \textbf{SuggestionSubsystem}: More in detail:
 		\\
 	\item \textbf{NotificationManager}: Manage all the subscriptions for notification made by the client's app when a traffic warden log in and send the notification to them when a new report is added.
+	\item \textbf{ALPR}: Elaborates the picture of the violation to extract the license plate. This component is designed to be separate by the others so that if after deployment it will became overload it could be deployed on a different server.
 \begin{figure}[ht]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/SuggestionSubsystem-components-diagram.png}
@@ -227,8 +229,11 @@ list all design decisions (al least references to ...) explain how they're used 
 				\hline
 				\bf Date & \bf \makebox[1.8cm][c]{Hours} & \bf \makebox[6.7cm][c]{Description} \\
 				23/11/19 & \makebox[1.8cm][c]{2} & \makebox[6.7cm][c]{Architectural design}\\
+				24/11/19 & \makebox[1.8cm][c]{3} & \makebox[6.7cm][c]{Architectural design}\\
+				29/11/19 & \makebox[1.8cm][c]{2} & \makebox[6.7cm][c]{Architectural design}\\
+				30/11/19 & \makebox[1.8cm][c]{4} & \makebox[6.7cm][c]{Architectural design}\\
 				\hline
-				total    & \makebox[1.8cm][c]{2}
+				total    & \makebox[1.8cm][c]{11}
 			\end{tabular}
 	\end{center}
 	\vspace{1cm}
