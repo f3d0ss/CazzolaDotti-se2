@@ -165,10 +165,11 @@ the application server uses to offer its functionalities.
 	\item \textbf{ReportManager}: Manages all the requests inerent to reports (e.g. get list of report, send new report) and is responsible to check if the new reports are consistent. Also collects reports form the database to pass them to other components.
 	\item \textbf{Area-Highlighter}: Elaborates the reports to find in which area more violations are committed.
 	\item \textbf{RankingManager}: Elaborates the valid reports to create a ranking of the vehicles that committed more violations.
-	\item \textbf{SuggestionSubsystem}: More in detail:
-		\\
+	\item \textbf{NotificationManager}: Manage all the subscriptions for notification made by the client's app when a traffic warden log in and send the notification to them when a new report is added.
 	\item \textbf{NotificationManager}: Manage all the subscriptions for notification made by the client's app when a traffic warden log in and send the notification to them when a new report is added.
 	\item \textbf{ALPR}: Elaborates the picture of the violation to extract the license plate. This component is designed to be separate by the others so that if after deployment it will became overload it could be deployed on a different server.
+	\item \textbf{SuggestionSubsystem}: More in detail:
+		\\
 \begin{figure}[ht]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/SuggestionSubsystem-components-diagram.png}
@@ -193,17 +194,56 @@ External services like the Map Provider are not included.
 
 	
 \begin{itemize}
-	\item \textbf{Tier 1} Users can access the SafeStreets service using the mobile application available for Android and iOS devices or using the web app (compatible with any modern browser).
-	\item \textbf{Tier 2} The same server machine (for budget reasons)  will contain all the components handling the business and the web logic. The application server handles all the requests coming from the users applications. The web server is just there to make possible to get the web app from the website. The web app will communicate directly with the application server using RESTful API.
-	\item \textbf{Tier 3} The database machine will run MySQL server (a relational database management system). On this machine will be stored all the persistent data.
+	\item \textbf{Tier 1} \\
+		Users can access the SafeStreets service using the mobile application available for Android and iOS devices or using the web app (compatible with any modern browser).
+	\item \textbf{Tier 2} \\ 
+		The same server machine (for budget reasons)  will contain all the components handling the business and the web logic. The application server handles all the requests coming from the users applications. The web server is just there to make possible to get the web app from the website. The web app will communicate directly with the application server using RESTful API.
+	\item \textbf{Tier 3} \\
+		The database machine will run MySQL server (a relational database management system). On this machine will be stored all the persistent data.
 \end{itemize}
+
+\subsection{Runtime view}
+ In this section are shown the sequence diagrams of some features. They are useful to clarify the runtime behaviour of the components involved for each functionality.
+\newpage
+\subsubsection{Report Violation}
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=0.88\textwidth]{images/report-violation-sequence.png}
+	\caption{Report violation sequence diagram}
+	\label{fig:report-violation-sequence-diagram}
+\end{figure}
+The numbers present in some responses refer to HTTP response status codes:
+\begin{itemize}
+	\item \textbf{201 Created}: The request has been fulfilled, resulting in the creation of a new resource.
+	\item \textbf{400 Bad Request}: The server cannot or will not process the request due to an apparent client error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing).
+	\item \textbf{401 Unauthorized}: The user does not have valid authentication credentials for the target resource.
+	\item \textbf{409 Conflict}: Indicates that the request could not be processed because of conflict in the current state of the resource, such as an edit conflict between multiple simultaneous updates.
+\end{itemize}
+\subsubsection{Login}
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=1.0\textwidth]{images/login-sequence-diagram.png}
+	\caption{Login sequence diagram}
+	\label{fig:login-sequence-diagram}
+\end{figure}
+Standard RESTful login process exploiting JWTs. \\
+This diagram also shows the differences in the login process between a standard user and a traffic warden. The latter must also receive notifications so the NotificationManager is required.
 
 \newpage
 
-\subsection{Runtime view}
- 2.4 interactions seq diagrams, more details on diagrams used in RASD (in rasd no breakdown of components) (here we highlights of system respond to interaction from outside, which components? )
- \\ In this section are shown the sequence diagrams of some features. They are useful to clarify the
-runtime behaviour of the components involved for each functionality.
+\subsubsection{Cross data to suggest possbile interventions}
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=1.0\textwidth]{images/miner-sequence-diagram.png}
+	\caption{Suggestions sequence diagram}
+	\label{fig:miner-sequence-diagram}
+\end{figure}
+
+The diagram shows how there are no human actors involved. This is an automated process triggered by a timer (runs once every day). \\
+The data needed by the SuggestionMiner are fetched from the Municipality Server and from the SafeStreets DBMS. The updated suggestions list is then stored on the database.
+
+\subsubsection{Visualize public available data on the map}
+\subsubsection{Visualize suggestions for possible interventions}
 
 \subsection{Component interfaces}
 Details on method on interfaces previously indentified, consistency check ( labels messages used in runtimeview consistent with the interfaces of components)
@@ -231,9 +271,9 @@ list all design decisions (al least references to ...) explain how they're used 
 				23/11/19 & \makebox[1.8cm][c]{2} & \makebox[6.7cm][c]{Architectural design}\\
 				24/11/19 & \makebox[1.8cm][c]{3} & \makebox[6.7cm][c]{Architectural design}\\
 				29/11/19 & \makebox[1.8cm][c]{2} & \makebox[6.7cm][c]{Architectural design}\\
-				30/11/19 & \makebox[1.8cm][c]{4} & \makebox[6.7cm][c]{Architectural design}\\
+				30/11/19 & \makebox[1.8cm][c]{6} & \makebox[6.7cm][c]{Architectural design}\\
 				\hline
-				total    & \makebox[1.8cm][c]{11}
+				total    & \makebox[1.8cm][c]{13}
 			\end{tabular}
 	\end{center}
 	\vspace{1cm}
@@ -250,9 +290,9 @@ list all design decisions (al least references to ...) explain how they're used 
 				22/11/19 & \makebox[1.8cm][c]{1.5} & \makebox[6.7cm][c]{Introduction}\\
 				23/11/19 & \makebox[1.8cm][c]{1.5} & \makebox[6.7cm][c]{Architectural design}\\
 				29/11/19 & \makebox[1.8cm][c]{0.5} & \makebox[6.7cm][c]{Component view}\\
-				30/11/19 & \makebox[1.8cm][c]{4} & \makebox[6.7cm][c]{Component and Deployment view}\\
+				30/11/19 & \makebox[1.8cm][c]{6.5}\makebox[6.7cm][c]{Component Deployment Runtime view}\\
 				\hline
-				total    & \makebox[1.8cm][c]{8.5}
+				total    & \makebox[1.8cm][c]{11}
 			\end{tabular}
 	\end{center}
 
