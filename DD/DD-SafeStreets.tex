@@ -80,6 +80,7 @@ Furthermore, thanks to the increased number of tickets, the municipality will ha
 \item \textbf{Mine}: to process data for obtaining new data
 \item \textbf{Violation}: an infringement of the rules
 \item \textbf{Unsafe}: area area where often happen violation and accident
+\item \textbf{Report Open}: a report with no traffic warden assigned
 \end{itemize}
 
 \subsubsection{Acronyms}
@@ -89,10 +90,11 @@ Furthermore, thanks to the increased number of tickets, the municipality will ha
 	\item \textbf{FOSS}: Free and Open Source Software
 	\item \textbf{S2B}: Software to Be
 	\item \textbf{API}: Application Programming Interface
-	\item \textbf{NIST}: National Institute of Standards and Technology
-	\item \textbf{RFC}: Request for Comments
 	\item \textbf{ALPR}: Automated License Plate Recognition
 	\item \textbf{JWT}: JSON Web Tokens
+	\item \textbf{FCM}: Firebase Cloud Messaging
+	\item \textbf{REST}: REpresentational State Transfer
+	\item \textbf{DBMS}: Database Management System
 \end{itemize}
 
 \subsubsection{Abbreviations}
@@ -222,6 +224,19 @@ The numbers present in some responses refer to HTTP response status codes:
 	\item \textbf{401 Unauthorized}: The user does not have valid authentication credentials for the target resource.
 	\item \textbf{409 Conflict}: Indicates that the request could not be processed because of conflict in the current state of the resource. 
 \end{itemize}
+
+\subsubsection{Traffic warden takes on report}
+\label{sec:notification}
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=1.0\textwidth]{images/notification-sequence.png}
+	\caption{Traffic warden takes on report sequence diagram}
+	\label{fig:notifaction-sequence}
+\end{figure}
+Firebase Cloud Messaging (FCM) is a cross-platform messaging solution that lets you reliably deliver messages at no cost.
+Using FCM, we can notify a traffic warden client app that a new report to take on is available.
+
+\newpage
 \subsubsection{Login}
 \begin{figure}[ht]
 \centering
@@ -233,7 +248,6 @@ Standard RESTful login process exploiting JWTs. \\
 This diagram also shows the differences in the login process between a standard user and a traffic warden. The latter must also receive notifications so the NotificationManager is required.
 
 \newpage
-
 \subsubsection{Cross data to suggest possbile interventions}
 \begin{figure}[ht]
 \centering
@@ -271,11 +285,11 @@ The data needed by the SuggestionMiner are fetched from the Municipality Server 
 	\label{fig:visualize-suggestion-sequence}
 \end{figure}
 
+
+
 \newpage
 \subsection{Component interfaces}
-Details on method on interfaces previously indentified, consistency check ( labels messages used in runtimeview consistent with the interfaces of components)
-\\
-use tables with name of the methods rather than diagramith name of the methods rather than diagram
+Here are provided details on methods on interfaces previously indentified. Labels in messages used in the runtime view sequence diagrams must be consistent with the interfaces of components.
 \\
 This viewpoint consists of a set of interface specifications for each entity.
 
@@ -338,9 +352,7 @@ list all design decisions (al least references to ...) explain how they're used 
 The communication between SafeStreets ApplicationServer and the user application uses HTTP(S) requests which follows REST principles.
 One of the most important REST principles is that the interaction between the client and server is stateless between requests. Each request from the client to the server must contain all of the information necessary to understand the request. For instance the client wouldn’t notice if the server were to be restarted at any point between the requests.
 This is achieved using a uniform and predefined set of stateless operations based on strict use of HTTP request types.\\
-The usage of RESTful requests is clearly visible in the sequence diagrams included in the Runtime View section \ref{sec:Runtime} \\
-The main advantages of REST are:
-
+The usage of RESTful requests is visible in the sequence diagrams included in the Runtime View section \ref{sec:Runtime} \\
 
 \item \textbf{Three-tier architecture}: \\
 The Three-tier architecture is a client-server software architecture pattern (the most widespread used approach in multitier architecture).
@@ -357,10 +369,20 @@ The main advantage of using this architecture is that any of the three tiers can
 \end{itemize}
 
 \subsection{Other design decisions}
-data mining
-router 
-nodejs 
-ALPR
+\begin{itemize}
+\item \textbf{Relational Database}: The advantages of relational databases (Expressive query language, secondary indexes, strong consistency, etc.) make them a preferred choice for this application as it will handle well-structured data.\\
+									We've chosen MySQL as a DBMS because it's open source, easy to use, and there is a lot of material available. Also the development team is already familiar with it.
+\item \textbf{Node.js}: Node.js is a FOSS runtime environment for server-side and networking applications. Node.js applications are developed in JavaScript and the apps run inside the Node.js runtime environment.
+				We've chosen Node.js because there are a lot of packages, tools and material available (power of one of the largest communities) and the development team is already familiar with it.
+				It's fast and easy to set up a Node.js infrastructure. Also Node.js apps are known for performing really well in high volume traffic and easily scaled up.
+\item \textbf{Router}: Routing refers to how an application’s endpoints (URIs) respond to client requests. We will use Express.js, which is one of the popular framework for Node.js, to provide the router functionalities as it make the development process fast and easy.
+\item \textbf{OpenALPR}: We've decided to use this software beacause it's an open source library with bindings available also for Node.js,
+				         so the OpenALPR Software can integrate easily with our application and it will be one of the core components.
+						 This software has proved to be precise and efficient. (It has become the standard for these kind of applications).
+\item \textbf{Firebase}: As already said in section \ref{sec:notification}. Firebase Cloud Messaging (FCM) is a cross-platform messaging solution that lets you reliably deliver messages at no cost.
+						Using FCM, we can easily notify a traffic warden client app that a new report is available. 
+\end{itemize}
+\newpage
 
 \section{User interface design}
 
