@@ -125,6 +125,7 @@ Furthermore, thanks to the increased number of tickets, the municipality will ha
 
 \section{Architectural design}
 \subsection{Overview: High-level components and their interaction}
+\label{sec:Overview}
 The application will be developed with three logic software layers: 
 \begin{itemize}
 	\item Presentation (P) manages the user interaction with the system 
@@ -165,8 +166,7 @@ the application server uses to offer its functionalities.
 	\item \textbf{ReportManager}: Manages all the requests inerent to reports (e.g. get list of report, send new report) and is responsible to check if the new reports are consistent. Also collects reports form the database to pass them to other components.
 	\item \textbf{Area-Highlighter}: Elaborates the reports to find in which area more violations are committed.
 	\item \textbf{RankingManager}: Elaborates the valid reports to create a ranking of the vehicles that committed more violations.
-	\item \textbf{NotificationManager}: Manage all the subscriptions for notification made by the client's app when a traffic warden log in and send the notification to them when a new report is added.
-	\item \textbf{NotificationManager}: Manage all the subscriptions for notification made by the client's app when a traffic warden log in and send the notification to them when a new report is added.
+	\item \textbf{NotificationManager}: Manages all the subscriptions for notification made by the client's app when a traffic warden log in and send the notification to them when a new report is added.
 	\item \textbf{ALPR}: Elaborates the picture of the violation to extract the license plate. This component is designed to be separate by the others so that if after deployment it will became overload it could be deployed on a different server.
 	\item \textbf{SuggestionSubsystem}: More in detail:
 		\\
@@ -183,6 +183,7 @@ the application server uses to offer its functionalities.
 \newpage
 
 \subsection{Deployment view}
+\label{sec:Deployment}
 The following diagram models the physical deployment of artifacts (software components) on nodes (hardware components).
 External services like the Map Provider are not included.
 \begin{figure}[ht]
@@ -203,7 +204,9 @@ External services like the Map Provider are not included.
 \end{itemize}
 
 \subsection{Runtime view}
- In this section are shown the sequence diagrams of some features. They are useful to clarify the runtime behaviour of the components involved for each functionality.
+\label{sec:Runtime}
+ In this section are shown the sequence diagrams of some features. They are useful to clarify the runtime behaviour of the components involved for each functionality.\\
+ In order to keep the diagrams more readable the parameters of the method invoked are not shown.
 \newpage
 \subsubsection{Report Violation}
 \begin{figure}[ht]
@@ -217,7 +220,7 @@ The numbers present in some responses refer to HTTP response status codes:
 	\item \textbf{201 Created}: The request has been fulfilled, resulting in the creation of a new resource.
 	\item \textbf{400 Bad Request}: The server cannot or will not process the request due to an apparent client error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request routing).
 	\item \textbf{401 Unauthorized}: The user does not have valid authentication credentials for the target resource.
-	\item \textbf{409 Conflict}: Indicates that the request could not be processed because of conflict in the current state of the resource, such as an edit conflict between multiple simultaneous updates.
+	\item \textbf{409 Conflict}: Indicates that the request could not be processed because of conflict in the current state of the resource. 
 \end{itemize}
 \subsubsection{Login}
 \begin{figure}[ht]
@@ -241,18 +244,123 @@ This diagram also shows the differences in the login process between a standard 
 
 The diagram shows how there are no human actors involved. This is an automated process triggered by a timer (runs once every day). \\
 The data needed by the SuggestionMiner are fetched from the Municipality Server and from the SafeStreets DBMS. The updated suggestions list is then stored on the database.
+\newpage
+\subsubsection{Visualize area with more violation on the map}
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=1.0\textwidth]{images/area-highlight-sequence.png}
+	\caption{Suggestions sequence diagram}
+	\label{fig:area-highlight-sequence}
+\end{figure}
 
-\subsubsection{Visualize public available data on the map}
+\newpage
+\subsubsection{Visualize ranking of vehicles that committed more violation}
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=1.0\textwidth]{images/ranking-sequence.png}
+	\caption{Suggestions sequence diagram}
+	\label{fig:ranking-sequence}
+\end{figure}
+
+\newpage
 \subsubsection{Visualize suggestions for possible interventions}
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=1.0\textwidth]{images/visualize-suggestion-sequence.png}
+	\caption{Suggestions sequence diagram}
+	\label{fig:visualize-suggestion-sequence}
+\end{figure}
 
+\newpage
 \subsection{Component interfaces}
 Details on method on interfaces previously indentified, consistency check ( labels messages used in runtimeview consistent with the interfaces of components)
 \\
-use tables ?
+use tables with name of the methods rather than diagramith name of the methods rather than diagram
+\\
+This viewpoint consists of a set of interface specifications for each entity.
+
+\begin{itemize}
+	\item \textbf{Router}:
+		\begin{itemize}
+			\item \textbf{API:getReportTypes()}:
+			\item \textbf{API:sendReport()}:
+			\item \textbf{login()}:
+			\item \textbf{subscribe()}:
+			\item \textbf{getHighlightedArea()}:
+			\item \textbf{getRanking()}:
+			\item \textbf{getSuggestion()}:
+		\end{itemize}
+	\item \textbf{Authenticator}:
+		\begin{itemize}
+			\item \textbf{checkAuth()}:
+			\item \textbf{login()}:
+		\end{itemize}
+	\item \textbf{ReportManager}:
+		\begin{itemize}
+			\item \textbf{sendNotification()}:
+			\item \textbf{getReportTypes()}:
+			\item \textbf{saveReport()}:
+			\item \textbf{getReportList()}:
+		\end{itemize}
+	\item \textbf{Area-Highlighter}: 
+		\begin{itemize}
+			\item \textbf{getHighlightedArea()}:
+		\end{itemize}
+	\item \textbf{RankingManager}: 
+		\begin{itemize}
+			\item \textbf{getRanking()}:
+		\end{itemize}
+	\item \textbf{NotificationManager}:
+		\begin{itemize}
+			\item \textbf{sendNotification()}:
+			\item \textbf{subscribe()}:
+		\end{itemize}
+	\item \textbf{ALPR}:
+		\begin{itemize}
+			\item \textbf{recognizeLicensePlate()}:
+		\end{itemize}
+	\item \textbf{SuggestionSubsystem}: More in detail:
+	\item \textbf{SuggestionDisplayer}:
+		\begin{itemize}
+			\item \textbf{getSuggestion()}:
+		\end{itemize}
+	\item \textbf{SuggestionMiner}:
+		\begin{itemize}
+			\item \textbf{start()}:
+		\end{itemize}
+\end{itemize}
+
+
 \subsection{Selected architectural styles and patterns}
 list all design decisions (al least references to ...) explain how they're used , variants...
+\begin{itemize}
+\item \textbf{RESTful architecture}: REST is a software architectural style. \\
+The communication between SafeStreets ApplicationServer and the user application uses HTTP(S) requests which follows REST principles.
+One of the most important REST principles is that the interaction between the client and server is stateless between requests. Each request from the client to the server must contain all of the information necessary to understand the request. For instance the client wouldn’t notice if the server were to be restarted at any point between the requests.
+This is achieved using a uniform and predefined set of stateless operations based on strict use of HTTP request types.\\
+The usage of RESTful requests is clearly visible in the sequence diagrams included in the Runtime View section \ref{sec:Runtime} \\
+The main advantages of REST are:
+
+
+\item \textbf{Three-tier architecture}: \\
+The Three-tier architecture is a client-server software architecture pattern (the most widespread used approach in multitier architecture).
+The usage of this pattern is already specified in the high-level view section \ref{sec:Overview} and in the deployment view section \ref{sec:Deployment}.
+\begin{itemize}
+	\item \textbf{Presentation Tier} \\
+	Layer which users can access directly: using the mobile application available for Android and iOS devices or using the web app (compatible with any modern browser).
+	\item \textbf{Logic Tier} \\ 
+	Controls application’s functionality by performing detailed processing. The application server uses Node.js and handles all the requests coming from the users applications.
+	\item \textbf{Data Tier} \\
+	The data tier includes the data persistence mechanisms (database servers, etc.) and the data access layer that encapsulates the persistence mechanisms and exposes the data. The database machine will run MySQL server (a relational database management system). On this machine will be stored all the persistent data.
+\end{itemize}
+The main advantage of using this architecture is that any of the three tiers can be upgraded or replaced independently, without impacting other areas of the application. This gives the possibilty to scale the application up and out (e.g. by adding multiple servers).
+\end{itemize}
 
 \subsection{Other design decisions}
+data mining
+router 
+nodejs 
+ALPR
 
 \section{User interface design}
 
@@ -272,6 +380,7 @@ list all design decisions (al least references to ...) explain how they're used 
 				24/11/19 & \makebox[1.8cm][c]{3} & \makebox[6.7cm][c]{Architectural design}\\
 				29/11/19 & \makebox[1.8cm][c]{2} & \makebox[6.7cm][c]{Architectural design}\\
 				30/11/19 & \makebox[1.8cm][c]{6} & \makebox[6.7cm][c]{Architectural design}\\
+				01/12/19 & \makebox[1.8cm][c]{2much} & \makebox[6.7cm][c]{Architectural design}\\
 				\hline
 				total    & \makebox[1.8cm][c]{13}
 			\end{tabular}
@@ -291,6 +400,7 @@ list all design decisions (al least references to ...) explain how they're used 
 				23/11/19 & \makebox[1.8cm][c]{1.5} & \makebox[6.7cm][c]{Architectural design}\\
 				29/11/19 & \makebox[1.8cm][c]{0.5} & \makebox[6.7cm][c]{Component view}\\
 				30/11/19 & \makebox[1.8cm][c]{6.5}\makebox[6.7cm][c]{Component Deployment Runtime view}\\
+				01/12/19 & \makebox[1.8cm][c]{2much} & \makebox[6.7cm][c]{Architectural design}\\
 				\hline
 				total    & \makebox[1.8cm][c]{11}
 			\end{tabular}
