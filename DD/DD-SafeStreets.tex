@@ -225,16 +225,26 @@ The numbers present in some responses refer to HTTP response status codes:
 	\item \textbf{409 Conflict}: Indicates that the request could not be processed because of conflict in the current state of the resource. 
 \end{itemize}
 
-\subsubsection{Traffic warden takes on report}
+\subsubsection{Traffic warden receives notification}
 \label{sec:notification}
 \begin{figure}[ht]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/notification-sequence.png}
-	\caption{Traffic warden takes on report sequence diagram}
+	\caption{Traffic warden gets notification sequence diagram}
 	\label{fig:notifaction-sequence}
 \end{figure}
 Firebase Cloud Messaging (FCM) is a cross-platform messaging solution that lets you reliably deliver messages at no cost.
 Using FCM, we can notify a traffic warden client app that a new report to take on is available.
+
+\newpage
+\subsubsection{Traffic warden takes on report}
+\label{sec:traffic-warden}
+\begin{figure}[ht]
+\centering
+	\includegraphics[width=0.80\textwidth]{images/traffic-warden-report.png}
+	\caption{Traffic warden takes on report sequence diagram}
+	\label{fig:traffic-warden-sequence}
+\end{figure}
 
 \newpage
 \subsubsection{Login}
@@ -259,20 +269,20 @@ This diagram also shows the differences in the login process between a standard 
 The diagram shows how there are no human actors involved. This is an automated process triggered by a timer (runs once every day). \\
 The data needed by the SuggestionMiner are fetched from the Municipality Server and from the SafeStreets DBMS. The updated suggestions list is then stored on the database.
 \newpage
-\subsubsection{Visualize area with more violation on the map}
+\subsubsection{Visualize critical areas on the map}
 \begin{figure}[ht]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/area-highlight-sequence.png}
-	\caption{Suggestions sequence diagram}
+	\caption{Areas sequence diagram}
 	\label{fig:area-highlight-sequence}
 \end{figure}
 
 \newpage
-\subsubsection{Visualize ranking of vehicles that committed more violation}
+\subsubsection{Visualize the ranking of vehicles that committed more violations}
 \begin{figure}[ht]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/ranking-sequence.png}
-	\caption{Suggestions sequence diagram}
+	\caption{Vehicles ranking sequence diagram}
 	\label{fig:ranking-sequence}
 \end{figure}
 
@@ -303,6 +313,10 @@ This viewpoint consists of a set of interface specifications for each entity.
 			\item \textbf{getHighlightedArea()}:
 			\item \textbf{getRanking()}:
 			\item \textbf{getSuggestion()}:
+			\item \textbf{getOpenReports()}:
+			\item \textbf{takeOnReport()}:
+			\item \textbf{validateReport()}:
+			\item \textbf{unvalidateReport()}:
 		\end{itemize}
 	\item \textbf{Authenticator}:
 		\begin{itemize}
@@ -315,6 +329,9 @@ This viewpoint consists of a set of interface specifications for each entity.
 			\item \textbf{getReportTypes()}:
 			\item \textbf{saveReport()}:
 			\item \textbf{getReportList()}:
+			\item \textbf{getOpenReports()}:
+			\item \textbf{validateReport()}:
+			\item \textbf{unvalidateReport()}:
 		\end{itemize}
 	\item \textbf{Area-Highlighter}: 
 		\begin{itemize}
@@ -422,9 +439,10 @@ The main advantage of using this architecture is that any of the three tiers can
 				23/11/19 & \makebox[1.8cm][c]{1.5} & \makebox[6.7cm][c]{Architectural design}\\
 				29/11/19 & \makebox[1.8cm][c]{0.5} & \makebox[6.7cm][c]{Component view}\\
 				30/11/19 & \makebox[1.8cm][c]{6.5}\makebox[6.7cm][c]{Component Deployment Runtime view}\\
-				01/12/19 & \makebox[1.8cm][c]{2much} & \makebox[6.7cm][c]{Architectural design}\\
+				01/12/19 & \makebox[1.8cm][c]{8} & \makebox[6.7cm][c]{Architectural design}\\
+				03/12/19 & \makebox[1.8cm][c]{t} & \makebox[6.7cm][c]{Architectural design}\\
 				\hline
-				total    & \makebox[1.8cm][c]{11}
+				total    & \makebox[1.8cm][c]{19}
 			\end{tabular}
 	\end{center}
 
