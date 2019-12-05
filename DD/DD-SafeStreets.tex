@@ -152,7 +152,7 @@ The following image shows an high-level view of the architecture of the system u
 
 In the following diagram only the application server is analyzed in detail
 
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/components-diagram.png}
 	\caption{Component diagram}
@@ -172,14 +172,16 @@ the application server uses to offer its functionalities.
 	\item \textbf{ALPR}: Elaborates the picture of the violation to extract the license plate. This component is designed to be separate by the others so that if after deployment it will became overload it could be deployed on a different server.
 	\item \textbf{SuggestionSubsystem}: More in detail:
 		\\
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/SuggestionSubsystem-components-diagram.png}
 	\caption{Component diagram suggestion subsystem}
 	\label{fig:component-suggestion-subsystem}
 \end{figure}
+\begin{itemize}
 	\item \textbf{SuggestionDisplayer}: Sends the list of the suggestions
 	\item \textbf{SuggestionMiner}: Gets data from Muncipality's servers and from Safestreets' database and elaborates the suggestions for possible interventions
+\end{itemize}
 \end{itemize}
 
 \newpage
@@ -188,7 +190,7 @@ the application server uses to offer its functionalities.
 \label{sec:Deployment}
 The following diagram models the physical deployment of artifacts (software components) on nodes (hardware components).
 External services like the Map Provider are not included.
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/deployment_diagram.png}
 	\caption{Deployment diagram}
@@ -205,18 +207,11 @@ External services like the Map Provider are not included.
 		The database machine will run MySQL server (a relational database management system). On this machine will be stored all the persistent data.
 \end{itemize}
 
+\newpage
 \subsection{Runtime view}
 \label{sec:Runtime}
  In this section are shown the sequence diagrams of some features. They are useful to clarify the runtime behaviour of the components involved for each functionality.\\
  In order to keep the diagrams more readable the parameters of the method invoked are not shown.
-\newpage
-\subsubsection{Report Violation}
-\begin{figure}[ht]
-\centering
-	\includegraphics[width=0.88\textwidth]{images/report-violation-sequence.png}
-	\caption{Report violation sequence diagram}
-	\label{fig:report-violation-sequence-diagram}
-\end{figure}
 The numbers present in some responses refer to HTTP response status codes:
 \begin{itemize}
 	\item \textbf{201 Created}: The request has been fulfilled, resulting in the creation of a new resource.
@@ -225,9 +220,18 @@ The numbers present in some responses refer to HTTP response status codes:
 	\item \textbf{409 Conflict}: Indicates that the request could not be processed because of conflict in the current state of the resource. 
 \end{itemize}
 
+
+\newpage
+\subsubsection{Report Violation}
+\begin{figure}[h!]
+\centering
+	\includegraphics[width=1.0\textwidth]{images/report-violation-sequence.png}
+	\caption{Report violation sequence diagram}
+	\label{fig:report-violation-sequence-diagram}
+\end{figure}
 \subsubsection{Traffic warden receives notification}
 \label{sec:notification}
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/notification-sequence.png}
 	\caption{Traffic warden gets notification sequence diagram}
@@ -239,16 +243,16 @@ Using FCM, we can notify a traffic warden client app that a new report to take o
 \newpage
 \subsubsection{Traffic warden takes on report}
 \label{sec:traffic-warden}
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
-	\includegraphics[width=0.80\textwidth]{images/traffic-warden-report.png}
+	\includegraphics[width=1.0\textwidth]{images/traffic-warden-report.png}
 	\caption{Traffic warden takes on report sequence diagram}
 	\label{fig:traffic-warden-sequence}
 \end{figure}
 
 \newpage
 \subsubsection{Login}
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/login-sequence-diagram.png}
 	\caption{Login sequence diagram}
@@ -259,7 +263,7 @@ This diagram also shows the differences in the login process between a standard 
 
 \newpage
 \subsubsection{Cross data to suggest possbile interventions}
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/miner-sequence-diagram.png}
 	\caption{Suggestions sequence diagram}
@@ -270,7 +274,7 @@ The diagram shows how there are no human actors involved. This is an automated p
 The data needed by the SuggestionMiner are fetched from the Municipality Server and from the SafeStreets DBMS. The updated suggestions list is then stored on the database.
 \newpage
 \subsubsection{Visualize critical areas on the map}
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/area-highlight-sequence.png}
 	\caption{Areas sequence diagram}
@@ -279,7 +283,7 @@ The data needed by the SuggestionMiner are fetched from the Municipality Server 
 
 \newpage
 \subsubsection{Visualize the ranking of vehicles that committed more violations}
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/ranking-sequence.png}
 	\caption{Vehicles ranking sequence diagram}
@@ -288,7 +292,7 @@ The data needed by the SuggestionMiner are fetched from the Municipality Server 
 
 \newpage
 \subsubsection{Visualize suggestions for possible interventions}
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/visualize-suggestion-sequence.png}
 	\caption{Suggestions sequence diagram}
@@ -389,7 +393,7 @@ The main advantage of using this architecture is that any of the three tiers can
 \begin{itemize}
 \item \textbf{Relational Database}: The advantages of relational databases (Expressive query language, secondary indexes, strong consistency, etc.) make them a preferred choice for this application as it will handle well-structured data.\\
 									We've chosen MySQL as a DBMS because it's open source, easy to use, and there is a lot of material available. Also the development team is already familiar with it.
-\item \textbf{Node.js}: Node.js is a FOSS runtime environment for server-side and networking applications. Node.js applications are developed in JavaScript and the apps run inside the Node.js runtime environment.
+\item \textbf{Application Server}: Node.js is a FOSS runtime environment for server-side and networking applications. Node.js applications are developed in JavaScript and the apps run inside the Node.js runtime environment.
 				We've chosen Node.js because there are a lot of packages, tools and material available (power of one of the largest communities) and the development team is already familiar with it.
 				It's fast and easy to set up a Node.js infrastructure. Also Node.js apps are known for performing really well in high volume traffic and easily scaled up.
 \item \textbf{Router}: Routing refers to how an application’s endpoints (URIs) respond to client requests. We will use Express.js, which is one of the popular framework for Node.js, to provide the router functionalities as it make the development process fast and easy.
@@ -402,10 +406,123 @@ The main advantage of using this architecture is that any of the three tiers can
 \newpage
 
 \section{User interface design}
+\label{sec:UI}
+The idea is to build a simple, intuitive and material UI. The user interface and the UX should be the same on every device (android, iOS, webapp).
+\subsection{User interface mockups}
+Here we provide some mockups of the user interface. The purpose of these images is to give an approximate idea of the look of the application. 
+\\ The actual implementation may differ a bit.
+\subsection{UX Diagrams}
 
 \section{Requirements traceability}
+The following requirements were described in the RASD:
+\begin{itemize}
+\item	\textbf{R1} The system has to allow sign up of new users.
+\item	\textbf{R2} The system has to allow users to login.
+\item	\textbf{R3} The system must allow users to send pictures of violations, including their date, time, and position to authorities.
+\item	\textbf{R4} The system, when it receives a picture, must run an algorithm to read the license plate.
+\item	\textbf{R5} The system must allow the user to fix the license plate if the algorithm read it wrong.
+\item	\textbf{R6} The system must allow the user to fix the location if the GPS acquired the wrong location.
+\item	\textbf{R7} The system must store the information of the report sent by the users.
+\item	\textbf{R8} The system must send a notification to the traffic warden.
+\item	\textbf{R9} The system has to allow one traffic warden to "take on" the report.
+\item	\textbf{R10} The system has to allow the traffic warden to validate or to invalidate the report.
+\item	\textbf{R11} The system must mine the reports to higlight the streets (or the areas) with the highest frequency of violations.
+\item	\textbf{R12} The system has to allow search for a specific location and select from a menu which kind of data he wants to see.
+\item	\textbf{R13} The system must distinguish privilege of account (normal, traffic warden, municipality clerk).
+\item	\textbf{R14} The system must mine the reports to create a ranking of the vehicles that commit more violation.
+\item	\textbf{R15} The system must gather data about accidents from the municipality.
+\item	\textbf{R16} The system must cross the information provided by the municipality about the accidents with its own data to identify potentially unsafe areas.
+\item	\textbf{R17} The system must show possible interventions to improve unsafe area.
+\end{itemize}
+
+Here it's explained how the requirements defined in the RASD map to the components defined in the previous sections.
+\\ \\
+\begin{tabular}{r|l}
+\hline
+\bf Requirement & \bf Components\\
+\hline
+	R1 & Authenticator \\& DBMS \\& ClientAPP \\& Router\\ 
+\hline
+	R1 & Authenticator \\& DBMS \\& ClientAPP \\& Router\\ 
+\hline
+	R3 & ReportManager \\& ClientAPP \\& Router\\
+\hline
+	R4 & ReportManager \\& ALPR\\& ClientAPP\\
+\hline
+	R5 & ClientAPP \\
+\hline
+	R6 & ClientAPP \\
+\hline
+	R7 & ReportManager \\& DBMS\\
+\hline
+	R8 & Firebase \\& NotificationManager \\&  DBMS\\
+\hline
+	R9 & ReportManager \\& DBMS \\
+\hline
+	R10 & ReportManager \\& DBMS \\ 
+\hline
+	R11 & AreaHighlighter \\&ReportManager\\&  DBMS \\
+\hline
+	R12 & ClientApp \\& Map Provider\\
+\hline
+	R13 & Authenticator \\& DBMS\\
+\hline
+	R14 & RankingManager \\&ReportManager\\& DBMS \\
+\hline
+	R15 & MunicipalityAPI \\&  SuggestionMiner\\
+\hline
+	R16 & MunicipalityAPI \\&  SuggestionMiner\\& ReportManager \\& DBMS \\
+\hline
+	R17 & SuggestionDisplayer \\
+\hline
+\end{tabular}
+\\
 
 \section{Implementation, integration and test plan}
+\label{sec:ittp}
+\\
+An accurate analysis of the RASD and DD must be done before starting the implementation of the system.\\
+The system is divided in the following subsystems which can be implemented independently one from each other:
+\begin{itemize}
+	\item Client Applications (Android, iOS, webapp)
+	\item Application Server
+	\item Web Server
+	\item DBMS
+	\item External components:
+	\begin{itemize}
+		\item Map Provider
+		\item ALPR
+		\item Firebase
+	\end{itemize}
+\end{itemize}
+\\
+The idea is to adopt a bottom-up approach for the implementation strategy, but also, in order to provide first at least the key features of the system, the parts needed by those features will have an high priority. \\
+The table below lists the importance and implementation difficulty of the main features of the system which it is helpful to better understand the implementation and integration plans.
+\\ \\
+\begin{tabular}{c|c|c}
+\hline
+\bf Feature & \bf Importance for customers & \bf Implementation Difficulty\\
+\hline
+\hline
+Sign up and Login & High & Easy\\
+\hline
+Report violations & High & Medium \\
+\hline
+Get notifications & High & Easy\\
+\hline
+Take on reports & High & Medium \\
+\hline
+Cross data to suggest interventions  & Medium & Hard\\
+\hline
+Show ranking of vehicles & Medium & Easy\\
+\hline
+Show critical areas & Medium & Medium\\
+\hline
+\end{tabular}
+\\ \\
+The table shows how the priority is to have users sending reports and traffic wardens to take on them, which is the  main goal of the system.
+The functionalities that allow users to mine data are pretty easy to provide. 
+A more challenging task is to provide an algorithm that can elaborate proper suggestions for possible interventions, however this is an advanced function that does not affect normal users.
 
 \section{Effort spent}
 	\begin{center}
@@ -419,9 +536,11 @@ The main advantage of using this architecture is that any of the three tiers can
 				24/11/19 & \makebox[1.8cm][c]{3} & \makebox[6.7cm][c]{Architectural design}\\
 				29/11/19 & \makebox[1.8cm][c]{2} & \makebox[6.7cm][c]{Architectural design}\\
 				30/11/19 & \makebox[1.8cm][c]{6} & \makebox[6.7cm][c]{Architectural design}\\
-				01/12/19 & \makebox[1.8cm][c]{2much} & \makebox[6.7cm][c]{Architectural design}\\
+				01/12/19 & \makebox[1.8cm][c]{8} & \makebox[6.7cm][c]{Architectural design}\\
+				04/12/19 & \makebox[1.8cm][c]{4} & \makebox[6.7cm][c]{UI design}\\
+				05/12/19 & \makebox[1.8cm][c]{6} & \makebox[6.7cm][c]{UI design}\\
 				\hline
-				total    & \makebox[1.8cm][c]{13}
+				total    & \makebox[1.8cm][c]{31}
 			\end{tabular}
 	\end{center}
 	\vspace{1cm}
@@ -440,9 +559,11 @@ The main advantage of using this architecture is that any of the three tiers can
 				29/11/19 & \makebox[1.8cm][c]{0.5} & \makebox[6.7cm][c]{Component view}\\
 				30/11/19 & \makebox[1.8cm][c]{6.5}\makebox[6.7cm][c]{Component Deployment Runtime view}\\
 				01/12/19 & \makebox[1.8cm][c]{8} & \makebox[6.7cm][c]{Architectural design}\\
-				03/12/19 & \makebox[1.8cm][c]{t} & \makebox[6.7cm][c]{Architectural design}\\
+				03/12/19 & \makebox[1.8cm][c]{0.5} & \makebox[6.7cm][c]{Architectural design}\\
+				04/12/19 & \makebox[1.8cm][c]{2.5} & \makebox[6.7cm][c]{Architectural design}\\
+				05/12/19 & \makebox[1.8cm][c]{4} & \makebox[6.7cm][c]{Req. traceability and Implementation}\\
 				\hline
-				total    & \makebox[1.8cm][c]{19}
+				total    & \makebox[1.8cm][c]{27}
 			\end{tabular}
 	\end{center}
 
