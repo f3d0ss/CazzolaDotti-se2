@@ -238,7 +238,7 @@ The various components communicate via the internet.
 | --- | --- |
 | **Actor** |  User |
 | **Entry condition** |  The user has opened the application on his device. |
-| **Events flow** | 1. The user clicks ”Log In”. <br> 2. The user enters username and password. <br> 3. The user decides if he wants to be remembered by the system clicking on the relative checkbox.<br> 4. The user clicks ”Confirm”. <br> 5. If the user chose to be remembered, next time the use case ends without asking username and password.  |
+| **Events flow** | 1. The user enters username and password. <br> 2. The user decides if he wants to be remembered by the system clicking on the relative switch.<br> 3. The user clicks ”LOGIN”. <br> 4. If the user chose to be remembered, next time the use case ends without asking username and password.  |
 | **Exit condition** | User is logged in and in the home page of the application with the possibility to use function based on his account privileges. |
 | **Exception** | 1. The user enters invalid data. <br> 2. The user leaves blank at least one field. <br> In both cases the system warns the user suggesting him to insert correct data. <br> 3. No internet connection. The system suggests to check network configuration or to reconnect. |
 
@@ -249,7 +249,7 @@ The various components communicate via the internet.
 | --- | --- |
 | **Actor** | User, Traffic Warden |
 | **Entry condition** |  The user and the traffic warden has already done the Log in activity. |
-| **Events flow** | 1. The user chooses the “Report” option. <br> 2. The user selects the violation type.<br> 3. The user takes a picture of the violation. <br> 4. The system shows the license plate. <br> 5. The user checks if the license plate of the vehicle recognized from the picture is correct otherwise edits it. <br> 6. The system shows the location provided by the GPS on a map. <br> 7. The user checks if the location provided by the app is correct otherwise fixs it. <br> 8. The user uploads the data clicking on "Upload" <br> 9. The system sends a notification to the traffic warden. <br> 10. The traffic warden selects the report from the list of reports. <br> 11. The traffic warden clicks on "Take on". <br> 12. The traffic warden checks if the violation exists, if it does clicks on "Verify" otherwise clicks on "Fail" |
+| **Events flow** | 1. The user chooses the “CREATE REPORT” option. <br> 2. The user selects the violation type.<br> 3. The user takes a picture of the violation. <br> 4. The system shows the license plate. <br> 5. The user checks if the license plate of the vehicle recognized from the picture is correct otherwise edits it. <br> 6. The system shows the location provided by the GPS on a map. <br> 7. The user checks if the location provided by the app is correct otherwise fixs it. <br> 8. The user uploads the data clicking on "Upload" <br> 9. The system sends a notification to the traffic warden. <br> 10. The traffic warden selects the report from the list of reports. <br> 11. The traffic warden clicks on "Take on". <br> 12. The traffic warden checks if the violation exists, if it does clicks on "Verify" otherwise clicks on "Fail" |
 | **Exit condition** | The traffic warden has checked if the violation exist |
 | **Exception** | 1. No internet connection. The system suggests to check network configuration or to reconnect. |
 
@@ -260,7 +260,7 @@ The various components communicate via the internet.
 | --- | --- |
 | **Actor** |  User |
 | **Entry condition** |  The user is logged in and in the homepage |
-| **Events flow** | 1. The user cliks on "Show Map". <br> 2. The system loads the map of the city. <br> 3. The user can search for a specific location and select from a menu which kind of data he wants to see. |
+| **Events flow** | 1. The user cliks on "SHOW MAP". <br> 2. The system loads the map of the city. <br> 3. The user can search for a specific location and select from a menu which kind of data he wants to see. |
 | **Exit condition** | The requested information is showed on the map |
 | **Exception** | 1. No internet connection. The system suggests to check network configuration or to reconnect. |
 
