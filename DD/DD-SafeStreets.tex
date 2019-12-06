@@ -95,6 +95,8 @@ Furthermore, thanks to the increased number of tickets, the municipality will ha
 	\item \textbf{FCM}: Firebase Cloud Messaging
 	\item \textbf{REST}: REpresentational State Transfer
 	\item \textbf{DBMS}: Database Management System
+	\item \textbf{SDK}: Software Development Kit
+	\item \textbf{UX}: User eXperience
 \end{itemize}
 
 \subsubsection{Abbreviations}
@@ -365,7 +367,7 @@ This viewpoint consists of a set of interface specifications for each entity.
 		\end{itemize}
 \end{itemize}
 
-
+\newpage
 \subsection{Selected architectural styles and patterns}
 list all design decisions (al least references to ...) explain how they're used , variants...
 \begin{itemize}
@@ -402,6 +404,10 @@ The main advantage of using this architecture is that any of the three tiers can
 						 This software has proved to be precise and efficient. (It has become the standard for these kind of applications).
 \item \textbf{Firebase}: As already said in section \ref{sec:notification}. Firebase Cloud Messaging (FCM) is a cross-platform messaging solution that lets you reliably deliver messages at no cost.
 						Using FCM, we can easily notify a traffic warden client app that a new report is available. 
+\item \textbf{ClientAPP}: The client applications will be developed with Flutter.
+	Flutter is an app SDK for building applications for iOS, Android, and web from a single codebase.
+		The main advantages is the possibility to  provide the same application with the same UX on multiple platform writing the code only once. (Do more write less).
+
 \end{itemize}
 \newpage
 
@@ -480,7 +486,6 @@ Here it's explained how the requirements defined in the RASD map to the componen
 
 \section{Implementation, integration and test plan}
 \label{sec:ittp}
-\\
 An accurate analysis of the RASD and DD must be done before starting the implementation of the system.\\
 The system is divided in the following subsystems which can be implemented independently one from each other:
 \begin{itemize}
@@ -495,8 +500,7 @@ The system is divided in the following subsystems which can be implemented indep
 		\item Firebase
 	\end{itemize}
 \end{itemize}
-\\
-The idea is to adopt a bottom-up approach for the implementation strategy, but also, in order to provide first at least the key features of the system, the parts needed by those features will have an high priority. \\
+The idea is to adopt a bottom-up approach for the implementation strategy, but also, in order to provide first at least the key features of the system, the parts needed by those features will have an high priority.
 The table below lists the importance and implementation difficulty of the main features of the system which it is helpful to better understand the implementation and integration plans.
 \\ \\
 \begin{tabular}{c|c|c}
@@ -504,11 +508,11 @@ The table below lists the importance and implementation difficulty of the main f
 \bf Feature & \bf Importance for customers & \bf Implementation Difficulty\\
 \hline
 \hline
-Sign up and Login & High & Easy\\
+Sign up and Login & Low & Easy\\
 \hline
 Report violations & High & Medium \\
 \hline
-Get notifications & High & Easy\\
+Get notifications & Medium & Easy\\
 \hline
 Take on reports & High & Medium \\
 \hline
@@ -518,10 +522,12 @@ Show ranking of vehicles & Medium & Easy\\
 \hline
 Show critical areas & Medium & Medium\\
 \hline
+Show suggestions & Medium & Medium\\
+\hline
 \end{tabular}
 \\ \\
 The table shows how the priority is to have users sending reports and traffic wardens to take on them, which is the  main goal of the system.
-The functionalities that allow users to mine data are pretty easy to provide. 
+The functionalities that allow users to visualize data should pretty easy to provide. 
 A more challenging task is to provide an algorithm that can elaborate proper suggestions for possible interventions, however this is an advanced function that does not affect normal users.
 
 \section{Effort spent}
@@ -539,6 +545,7 @@ A more challenging task is to provide an algorithm that can elaborate proper sug
 				01/12/19 & \makebox[1.8cm][c]{8} & \makebox[6.7cm][c]{Architectural design}\\
 				04/12/19 & \makebox[1.8cm][c]{4} & \makebox[6.7cm][c]{UI design}\\
 				05/12/19 & \makebox[1.8cm][c]{6} & \makebox[6.7cm][c]{UI design}\\
+				06/12/19 & \makebox[1.8cm][c]{0} & \makebox[6.7cm][c]{}\\
 				\hline
 				total    & \makebox[1.8cm][c]{31}
 			\end{tabular}
@@ -562,6 +569,7 @@ A more challenging task is to provide an algorithm that can elaborate proper sug
 				03/12/19 & \makebox[1.8cm][c]{0.5} & \makebox[6.7cm][c]{Architectural design}\\
 				04/12/19 & \makebox[1.8cm][c]{2.5} & \makebox[6.7cm][c]{Architectural design}\\
 				05/12/19 & \makebox[1.8cm][c]{4} & \makebox[6.7cm][c]{Req. traceability and Implementation}\\
+				06/12/19 & \makebox[1.8cm][c]{0} & \makebox[6.7cm][c]{}\\
 				\hline
 				total    & \makebox[1.8cm][c]{27}
 			\end{tabular}
