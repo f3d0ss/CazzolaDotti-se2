@@ -91,6 +91,7 @@ Furthermore, thanks to the increased number of tickets, the municipality will ha
 	\item \textbf{S2B}: Software to Be
 	\item \textbf{API}: Application Programming Interface
 	\item \textbf{ALPR}: Automated License Plate Recognition
+	\item \textbf{JS}: JavaScript
 	\item \textbf{JWT}: JSON Web Tokens
 	\item \textbf{FCM}: Firebase Cloud Messaging
 	\item \textbf{REST}: REpresentational State Transfer
@@ -527,9 +528,28 @@ Show suggestions & Medium & Medium\\
 \end{tabular}
 \\ \\
 The table shows how the priority is to have users sending reports and traffic wardens to take on them, which is the  main goal of the system.
-The functionalities that allow users to visualize data should pretty easy to provide. 
+The functionalities that allow users to visualize data should pretty easy to provide as they consist in getting data from the database with simple queries and visualize it (as a plain list or on a map).
 A more challenging task is to provide an algorithm that can elaborate proper suggestions for possible interventions, however this is an advanced function that does not affect normal users.
 
+\subsection{Integration Process}
+
+\subsection{Testing}
+A Continuous integration (CI) service like Travis will be used. This service runs tests automatically when pushing code changes providing instant feedback on the code changes. Integrated with proper settings on github it also avoids the merge of code that doesn't pass tests to the master/production branch.
+\subsubsection{Unit testing}
+Significant unit tests should be written for each component. We don't suggest to adopt a test driven development approach, however appropiate unit tests give several benefits.
+(For instance: make it easier to identify bugs in code earlier, simplify debugging process, provide documentation, reduce the time needed to fix bugs.)\\
+\textbf{Mocha} (a simple and easy to use JS test framework running on Node.js) will be used for unit testing the application server components.\\
+Unit test for the ClientAPP  (developed with Flutter) will be written using the packages suggested by the official documentation: the test package, which provides the core framework for writing unit tests and the fluttertest package, which provides additional utilities.\\
+It's important to remind tha unit tests only test individual software components and methods. They don't test databases, network resources, render to screen, or the receive of user actions from outside the process running the test.
+Infact also other type of testing are needed.
+
+\subsubsection{Integration testing}
+The router component (which will be an express.js router) will be tested using Mocha and Supertest. 
+Supertest is a library written to test HTTP calls in Node.js, which is perfect to write tests for RESTful API.
+
+\subsubsection{Other types of testing}
+
+\newpage
 \section{Effort spent}
 	\begin{center}
 		{\bf Cazzola Federico \href{https://github.com/f-cazzola}{@f-cazzola} }
@@ -569,10 +589,26 @@ A more challenging task is to provide an algorithm that can elaborate proper sug
 				03/12/19 & \makebox[1.8cm][c]{0.5} & \makebox[6.7cm][c]{Architectural design}\\
 				04/12/19 & \makebox[1.8cm][c]{2.5} & \makebox[6.7cm][c]{Architectural design}\\
 				05/12/19 & \makebox[1.8cm][c]{4} & \makebox[6.7cm][c]{Req. traceability and Implementation}\\
-				06/12/19 & \makebox[1.8cm][c]{0} & \makebox[6.7cm][c]{}\\
+				06/12/19 & \makebox[1.8cm][c]{3} & \makebox[6.7cm][c]{Implementation and Testing}\\
 				\hline
-				total    & \makebox[1.8cm][c]{27}
+				total    & \makebox[1.8cm][c]{30}
 			\end{tabular}
 	\end{center}
+\section{References}
+\begin{itemize}
+	\item \href{https://flutter.dev/}{Flutter}
+	\item \href{https://firebase.google.com/}{Firebase}
+	\item \href{https://www.openalpr.com/}{ALPR}
+	\item \href{https://www.mysql.com/}{MySQL}
+	\item \href{https://expressjs.com/}{Express.js}
+	\item \href{https://nodejs.org/en/}{Node.js}
+	\item \href{https://www.npmjs.com/package/supertest}{Supertest}
+	\item \href{https://mochajs.org/}{Mocha}
+\end{itemize}
+\subsection{Software used}
+\begin{itemize}
+	\item \href{https://www.figma.com/}{Figma}: UI mockups
+	\item \href{https://www.draw.io/}{Draw.io}: Diagrams
+\end{itemize} 
 
 \end{document}
