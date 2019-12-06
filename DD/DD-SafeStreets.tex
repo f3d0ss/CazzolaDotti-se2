@@ -313,17 +313,18 @@ This viewpoint consists of a set of interface specifications for each entity.
 \begin{itemize}
 	\item \textbf{Router}:
 		\begin{itemize}
-			\item \textbf{API:getReportTypes()}:
-			\item \textbf{API:sendReport()}:
-			\item \textbf{login()}:
-			\item \textbf{subscribe()}:
-			\item \textbf{getHighlightedArea()}:
-			\item \textbf{getRanking()}:
-			\item \textbf{getSuggestion()}:
-			\item \textbf{getOpenReports()}:
-			\item \textbf{takeOnReport()}:
-			\item \textbf{validateReport()}:
-			\item \textbf{unvalidateReport()}:
+			\item \textbf{GET /report/type}:
+			\item \textbf{POST /report}:
+			\item \textbf{POST /login}:
+			\item \textbf{POST /subscribe}:
+			\item \textbf{GET /highlight-area}:
+			\item \textbf{GET /ranking}:
+			\item \textbf{GET /suggestion}:
+			\item \textbf{GET /report/open}:
+			\item \textbf{PUT /report/:id/take-on}:
+			\item \textbf{PUT /report/:id/valid}:
+			\item \textbf{PUT /report/:id/invalid}:
+			\item \textbf{POST /location}:
 		\end{itemize}
 	\item \textbf{Authenticator}:
 		\begin{itemize}
@@ -443,7 +444,6 @@ The following requirements were described in the RASD:
 \end{itemize}
 
 Here it's explained how the requirements defined in the RASD map to the components defined in the previous sections.
-\\ \\
 \begin{tabular}{r|l}
 \hline
 \bf Requirement & \bf Components\\
@@ -503,7 +503,7 @@ The system is divided in the following subsystems which can be implemented indep
 \end{itemize}
 The idea is to adopt a bottom-up approach for the implementation strategy, but also, in order to provide first at least the key features of the system, the parts needed by those features will have an high priority.
 The table below lists the importance and implementation difficulty of the main features of the system which it is helpful to better understand the implementation and integration plans.
-\\ \\
+\\
 \begin{tabular}{c|c|c}
 \hline
 \bf Feature & \bf Importance for customers & \bf Implementation Difficulty\\
@@ -526,7 +526,7 @@ Show critical areas & Medium & Medium\\
 Show suggestions & Medium & Medium\\
 \hline
 \end{tabular}
-\\ \\
+\\
 The table shows how the priority is to have users sending reports and traffic wardens to take on them, which is the  main goal of the system.
 The functionalities that allow users to visualize data should pretty easy to provide as they consist in getting data from the database with simple queries and visualize it (as a plain list or on a map).
 A more challenging task is to provide an algorithm that can elaborate proper suggestions for possible interventions, however this is an advanced function that does not affect normal users.
