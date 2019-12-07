@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage{textcomp}
 
 % to make table of contents clickable
 \usepackage{hyperref}
@@ -372,13 +373,13 @@ This viewpoint consists of a set of interface specifications for each entity.
 					\item \textbf{Parameters}:
 						\begin{itemize}
 							\item JWT
-							\item filter: List<ReportType>
+							\item filter: List\textlangle{}ReportType\textrangle{}
 							\item from: Date , analyze data only starting from this date
 							\item to: Date , analyze data only until this date
 						\end{itemize}
 					\item \textbf{Return}:
 						\begin{itemize}
-							\item areas: List<Area>
+							\item areas: List\textlangle{}Area\textrangle{}
 						\end{itemize}
 				\end{itemize}
 			\item \textbf{GET /ranking}:
@@ -387,13 +388,13 @@ This viewpoint consists of a set of interface specifications for each entity.
 					\item \textbf{Parameters}:
 						\begin{itemize}
 							\item JWT
-							\item filter: List<ReportType>
+							\item filter: List\textlangle{}ReportType\textrangle{}
 							\item from: Date , analyze data only starting from this date
 							\item to: Date , analyze data only until this date
 						\end{itemize}
 					\item \textbf{Return}:
 						\begin{itemize}
-							\item ranking: List<String> , ordered list of license plate
+							\item ranking: List\textlangle{}String\textrangle{} , ordered list of license plate
 						\end{itemize}
 				\end{itemize}
 			\item \textbf{GET /suggestion}:
@@ -405,7 +406,7 @@ This viewpoint consists of a set of interface specifications for each entity.
 						\end{itemize}
 					\item \textbf{Return}:
 						\begin{itemize}
-							\item suggestions: List<Suggestion>
+							\item suggestions: List\textlangle{}Suggestion\textrangle{}
 						\end{itemize}
 				\end{itemize}
 			\item \textbf{GET /report/open}:
@@ -417,7 +418,7 @@ This viewpoint consists of a set of interface specifications for each entity.
 						\end{itemize}
 					\item \textbf{Return}:
 						\begin{itemize}
-							\item reports: List<Report>
+							\item reports: List\textlangle{}Report\textrangle{}
 						\end{itemize}
 				\end{itemize}
 			\item \textbf{PUT /report/:id/take-on}:
