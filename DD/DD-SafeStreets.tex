@@ -205,11 +205,17 @@ External services like the Map Provider are not included.
 \begin{itemize}
 	\item \textbf{Tier 1} \\
 		Users can access the SafeStreets service using the mobile application available for Android and iOS devices or using the web app (compatible with any modern browser).
+		The web app will communicate directly with the application server using RESTful API,
+		exactly like the apps for iOS and Android.
 	\item \textbf{Tier 2} \\ 
-		The same server machine (for budget reasons)  will contain all the components handling the business and the web logic. The application server handles all the requests coming from the users applications. The web server is just there to make possible to get the web app from the website. The web app will communicate directly with the application server using RESTful API.
+		The same server machine (for budget reasons)  will contain all the components handling the business and the web logic.
+		The application server handles all the requests coming from the users applications. 
+		The web server is just there to make possible to get the web app from a website. 
 	\item \textbf{Tier 3} \\
 		The database machine will run MySQL server (a relational database management system). On this machine will be stored all the persistent data.
 \end{itemize}
+		\small Note1: The webserver will not be mentioned in the next sections. It would be like including the AppStore or GooglePlay. However it has to be deployed.\\
+		\small Note2: The ClientAPP will work in same way on every platform.
 
 \newpage
 \subsection{Runtime view}
@@ -954,8 +960,8 @@ Here it's explained how the requirements defined in the RASD map to the componen
 	R17 & SuggestionDisplayer \\
 \hline
 \end{tabular}
-\\
 
+\clearpage
 \section{Implementation, integration and test plan}
 \label{sec:ittp}
 An accurate analysis of the RASD and DD must be done before starting the implementation of the system.\\
@@ -1001,14 +1007,31 @@ Show suggestions & Medium & Medium\\
 \\ \\ \\
 The table shows how the priority is to have users sending reports and traffic wardens to take on them, which is the  main goal of the system.
 The functionalities that allow users to visualize data should pretty easy to provide as they consist in getting data from the database with simple queries and visualize it (as a plain list or on a map).
-A more challenging task is to provide an algorithm that can elaborate proper suggestions for possible interventions, however this is an advanced function that does not affect normal users.
+A more challenging task is to provide an algorithm that can elaborate proper suggestions for possible interventions, however this is an advanced function that does not affect normal users. 
 
 \subsection{Integration Process}
 As already stated, the integration will be performed from following a bottom-up approach.
 The modules which are being integrated should pass the unit tests in order to be sure that the components are working fine on
 their own and that if an integration test fails, the problem is regarding the integration itself.
-\subsubsection{Integration Order}
 
+\subsubsection{Integration Order}
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=1.0\textwidth]{images/component-integration.png}
+			\caption{Integration Order Diagram}
+		\end{figure}
+\begin{enumerate}
+	\item 	The priority is to have the main functionality working ASAP, so the integration between the key components (ClientAPP, Router, ReportManager and DBMS) must be done first. 
+		This will be helpful to test the core of the main functionality. 
+	\item 	However to actually make it usable in a real use case for an user also the ALPR, MapProvider and Authenticator must be integrated.
+	\item 	The NotificationManager and FireBase will then be integrated. 
+	\item   The component needed to visualize the critical areas (Area-Highlighter) will be integrated.
+	\item   The component needed to elaborate the ranking of vehicles (RankingManager) will be integrated.
+	\item   Eventually the components needed to provide the suggestions ( MunicipalityAPI and the Suggestion Subsystem ) will be integrated.
+\end{enumerate}
+This is the best strategy from the point of view of the standard users.
+Which could be a reasonable strategy to adopt because the project is crow-funded.
+However, as cleary visible in the diagram, the phases 3,4,5,6 can be switched. 
 
 \subsection{Testing}
 A Continuous integration (CI) service like Travis will be used. This service runs tests automatically when pushing code changes providing instant feedback on the code changes. Integrated with proper settings on github it also avoids the merge of code that doesn't pass tests to the master/production branch.
@@ -1048,11 +1071,11 @@ The security of the system may be tested, for instance, by doing some penetratio
 				30/11/19 & \makebox[1.8cm][c]{6} & \makebox[6.7cm][c]{Architectural design}\\
 				01/12/19 & \makebox[1.8cm][c]{8} & \makebox[6.7cm][c]{Architectural design}\\
 				04/12/19 & \makebox[1.8cm][c]{4} & \makebox[6.7cm][c]{UI design}\\
-				05/12/19 & \makebox[1.8cm][c]{6} & \makebox[6.7cm][c]{UI design}\\
-				06/12/19 & \makebox[1.8cm][c]{0} & \makebox[6.7cm][c]{}\\
-				07/12/19 & \makebox[1.8cm][c]{0} & \makebox[6.7cm][c]{}\\
+				05/12/19 & \makebox[1.8cm][c]{6} & \makebox[6.7cm][c]{UI design and UX}\\
+				06/12/19 & \makebox[1.8cm][c]{4.3} & \makebox[6.7cm][c]{UI design and UX}\\
+				07/12/19 & \makebox[1.8cm][c]{8} & \makebox[6.7cm][c]{Interfaces, General improvements}\\
 				\hline
-				total    & \makebox[1.8cm][c]{31}
+				total    & \makebox[1.8cm][c]{43.3}
 			\end{tabular}
 	\end{center}
 	\vspace{1cm}
@@ -1075,9 +1098,9 @@ The security of the system may be tested, for instance, by doing some penetratio
 				04/12/19 & \makebox[1.8cm][c]{2.5} & \makebox[6.7cm][c]{Architectural design}\\
 				05/12/19 & \makebox[1.8cm][c]{4} & \makebox[6.7cm][c]{Req. traceability and Implementation}\\
 				06/12/19 & \makebox[1.8cm][c]{3} & \makebox[6.7cm][c]{Implementation and Testing}\\
-				07/12/19 & \makebox[1.8cm][c]{2} & \makebox[6.7cm][c]{Integration and Testing}\\
+				07/12/19 & \makebox[1.8cm][c]{8} & \makebox[6.7cm][c]{IT,UI, General improvements}\\
 				\hline
-				total    & \makebox[1.8cm][c]{31}
+				total    & \makebox[1.8cm][c]{37}
 			\end{tabular}
 	\end{center}
 \newpage
@@ -1096,6 +1119,10 @@ The security of the system may be tested, for instance, by doing some penetratio
 \begin{itemize}
 	\item \href{https://www.figma.com/}{Figma}: UI mockups
 	\item \href{https://www.draw.io/}{Draw.io}: Diagrams
+	\item \href{https://www.latex-project.org/}{LaTeX}: Document preparation system 
+	\item \href{https://www.vim.org/}{VIM}: The best Text Editor
+	\item \href{https://github.com/xuhdev/vim-latex-live-preview}{Latex plugin for VIM}
+	\item \href{https://code.visualstudio.com/}{vs code}: Text Editor with user-friendly live share plugin
 \end{itemize} 
 
 \end{document}
