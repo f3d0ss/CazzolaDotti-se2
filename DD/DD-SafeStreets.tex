@@ -156,7 +156,7 @@ The following image shows an high-level view of the architecture of the system u
 
 In the following diagram only the application server is analyzed in detail
 
-\begin{figure}[h!]
+\begin{figure}[!htb]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/components-diagram.png}
 	\caption{Component diagram}
@@ -176,7 +176,7 @@ the application server uses to offer its functionalities.
 	\item \textbf{ALPR}: Elaborates the picture of the violation to extract the license plate. This component is designed to be separate by the others so that if after deployment it will became overload it could be deployed on a different server.
 	\item \textbf{SuggestionSubsystem}: More in detail:
 		\\
-\begin{figure}[h!]
+\begin{figure}[!htb]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/SuggestionSubsystem-components-diagram.png}
 	\caption{Component diagram suggestion subsystem}
@@ -194,7 +194,7 @@ the application server uses to offer its functionalities.
 \label{sec:Deployment}
 The following diagram models the physical deployment of artifacts (software components) on nodes (hardware components).
 External services like the Map Provider are not included.
-\begin{figure}[h!]
+\begin{figure}[!htb]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/deployment_diagram.png}
 	\caption{Deployment diagram}
@@ -227,7 +227,7 @@ The numbers present in some responses refer to HTTP response status codes:
 
 \newpage
 \subsubsection{Report Violation}
-\begin{figure}[h!]
+\begin{figure}[!htb]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/report-violation-sequence.png}
 	\caption{Report violation sequence diagram}
@@ -235,7 +235,7 @@ The numbers present in some responses refer to HTTP response status codes:
 \end{figure}
 \subsubsection{Traffic warden receives notification}
 \label{sec:notification}
-\begin{figure}[h!]
+\begin{figure}[!htb]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/notification-sequence.png}
 	\caption{Traffic warden gets notification sequence diagram}
@@ -247,7 +247,7 @@ Using FCM, we can notify a traffic warden client app that a new report to take o
 \newpage
 \subsubsection{Traffic warden takes on report}
 \label{sec:traffic-warden}
-\begin{figure}[h!]
+\begin{figure}[!htb]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/traffic-warden-report.png}
 	\caption{Traffic warden takes on report sequence diagram}
@@ -256,7 +256,7 @@ Using FCM, we can notify a traffic warden client app that a new report to take o
 
 \newpage
 \subsubsection{Login}
-\begin{figure}[h!]
+\begin{figure}[!htb]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/login-sequence-diagram.png}
 	\caption{Login sequence diagram}
@@ -267,7 +267,7 @@ This diagram also shows the differences in the login process between a standard 
 
 \newpage
 \subsubsection{Cross data to suggest possbile interventions}
-\begin{figure}[h!]
+\begin{figure}[!htb]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/miner-sequence-diagram.png}
 	\caption{Suggestions sequence diagram}
@@ -278,7 +278,7 @@ The diagram shows how there are no human actors involved. This is an automated p
 The data needed by the SuggestionMiner are fetched from the Municipality Server and from the SafeStreets DBMS. The updated suggestions list is then stored on the database.
 \newpage
 \subsubsection{Visualize critical areas on the map}
-\begin{figure}[h!]
+\begin{figure}[!htb]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/area-highlight-sequence.png}
 	\caption{Areas sequence diagram}
@@ -287,7 +287,7 @@ The data needed by the SuggestionMiner are fetched from the Municipality Server 
 
 \newpage
 \subsubsection{Visualize the ranking of vehicles that committed more violations}
-\begin{figure}[h!]
+\begin{figure}[!htb]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/ranking-sequence.png}
 	\caption{Vehicles ranking sequence diagram}
@@ -296,14 +296,23 @@ The data needed by the SuggestionMiner are fetched from the Municipality Server 
 
 \newpage
 \subsubsection{Visualize suggestions for possible interventions}
-\begin{figure}[h!]
+\begin{figure}[!htb]
 \centering
 	\includegraphics[width=1.0\textwidth]{images/visualize-suggestion-sequence.png}
 	\caption{Suggestions sequence diagram}
 	\label{fig:visualize-suggestion-sequence}
 \end{figure}
 
-
+\clearpage
+\subsection{Database View}
+It is also important to describe how data are stored.
+Here we report a simple Entity-Relationship diagram. 
+This model defines the structure which will be implemented in the MySQL database.\\ \\ \\
+\begin{figure}[!htb]
+	\centering
+		\includegraphics[width=1.0\textwidth]{images/database-diagram.png}
+		\caption{Database ER diagram}
+	\end{figure}
 
 \newpage
 \subsection{Component interfaces}
@@ -735,8 +744,145 @@ The main advantage of using this architecture is that any of the three tiers can
 The idea is to build a simple, intuitive and material UI. The user interface and the UX should be the same on every device (android, iOS, webapp).
 \subsection{User interface mockups}
 Here we provide some mockups of the user interface. The purpose of these images is to give an approximate idea of the look of the application. 
-\\ The actual implementation may differ a bit.
+\\ The actual implementation may differ a bit.\\ \\
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Sign_in.png}
+		\caption{Sign-in page}
+\end{figure}
+\clearpage
+\subsubsection{User}
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Home_Citizen.png}
+		\caption{User HomePage}
+\end{figure}
+
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Violation_Type_Menu.png}
+		\caption{Select violation type}
+\end{figure}
+
+\clearpage
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Create_Report_take_picture.png}
+		\caption{Take Picture}
+\end{figure}
+
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Create_Report_after_picture.png}
+		\caption{Check License Plate Number}
+\end{figure}
+
+\clearpage
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Create_report_GPS.png}
+		\caption{Check Location and submit report}
+\end{figure}
+
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Show_Map.png}
+		\caption{Show Map}
+\end{figure}
+
+\clearpage
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Show_Map_Filter.png}
+		\caption{Select data to show on the map}
+\end{figure}
+
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Show_Map_Filter.png}
+		\caption{Select data to show on the map}
+\end{figure}
+
+\clearpage
+\subsubsection{Traffic Warden}
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Home_Traffic_Warden.png}
+		\caption{Home}
+\end{figure}
+
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Open_Report_Map.png}
+		\caption{Find open report}
+\end{figure}
+
+\clearpage
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Report_Open_detail.png}
+		\caption{Take on report}
+\end{figure}
+
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Report_Open_detail_took_on.png}
+		\caption{Validate report}
+\end{figure}
+
+\clearpage
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Ranking.png}
+		\caption{Check Ranking of vehicles}
+\end{figure}
+
+\clearpage
+\subsubsection{Municipality's clerk}
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Home_Municipality.png}
+		\caption{Home}
+\end{figure}
+
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Suggestions.png}
+		\caption{Check suggestions}
+\end{figure}
+
+\clearpage
+\begin{figure}[!htb]
+		\centering
+		\includegraphics[height=7.9cm,keepaspectratio]{images/mockups/Suggestions_Detail.png}
+		\caption{Check suggestion details}
+\end{figure}
+
+
+\clearpage
 \subsection{UX Diagrams}
+\begin{itemize} 
+	\item \bf User
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=1.0\textwidth]{images/UX/UX-citizen-v2.png}
+			\caption{User UX diagram}
+		\end{figure}
+
+	\item \bf Traffic warden
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=1.0\textwidth]{images/UX/UX-traffic-warden-v2.png}
+			\caption{Traffic warden UX diagram}
+		\end{figure}
+\newpage
+	\item \bf Municipality's clerk
+		\begin{figure}[!htb]
+			\centering
+			\includegraphics[width=1.0\textwidth]{images/UX/UX-municipality-v2.png}
+			\caption{Municipality's clerk UX diagram}
+		\end{figure}
+\end{itemize} 
 
 \newpage
 \section{Requirements traceability}
