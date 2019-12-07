@@ -572,6 +572,7 @@ Here we provide some mockups of the user interface. The purpose of these images 
 \\ The actual implementation may differ a bit.
 \subsection{UX Diagrams}
 
+\newpage
 \section{Requirements traceability}
 The following requirements were described in the RASD:
 \begin{itemize}
@@ -594,7 +595,7 @@ The following requirements were described in the RASD:
 \item	\textbf{R17} The system must show possible interventions to improve unsafe area.
 \end{itemize}
 
-Here it's explained how the requirements defined in the RASD map to the components defined in the previous sections.
+Here it's explained how the requirements defined in the RASD map to the components defined in the previous sections.\\
 \begin{tabular}{r|l}
 \hline
 \bf Requirement & \bf Components\\
@@ -650,14 +651,15 @@ The system is divided in the following subsystems which can be implemented indep
 		\item Map Provider
 		\item ALPR
 		\item Firebase
+		\item MuncipalityAPI
 	\end{itemize}
 \end{itemize}
 The idea is to adopt a bottom-up approach for the implementation strategy, but also, in order to provide first at least the key features of the system, the parts needed by those features will have an high priority.
 The table below lists the importance and implementation difficulty of the main features of the system which it is helpful to better understand the implementation and integration plans.
-\\
+\\ \\
 \begin{tabular}{c|c|c}
 \hline
-\bf Feature & \bf Importance for customers & \bf Implementation Difficulty\\
+\bf Feature & \bf Importance & \bf Implementation \\& \bf for customers & \bf Difficulty\\
 \hline
 \hline
 Sign up and Login & Low & Easy\\
@@ -670,19 +672,24 @@ Take on reports & High & Medium \\
 \hline
 Cross data to suggest interventions  & Medium & Hard\\
 \hline
-Show ranking of vehicles & Medium & Easy\\
+Show ranking of vehicles & Low & Easy\\
 \hline
 Show critical areas & Medium & Medium\\
 \hline
 Show suggestions & Medium & Medium\\
 \hline
 \end{tabular}
-\\
+\\ \\ \\
 The table shows how the priority is to have users sending reports and traffic wardens to take on them, which is the  main goal of the system.
 The functionalities that allow users to visualize data should pretty easy to provide as they consist in getting data from the database with simple queries and visualize it (as a plain list or on a map).
 A more challenging task is to provide an algorithm that can elaborate proper suggestions for possible interventions, however this is an advanced function that does not affect normal users.
 
 \subsection{Integration Process}
+As already stated, the integration will be performed from following a bottom-up approach.
+The modules which are being integrated should pass the unit tests in order to be sure that the components are working fine on
+their own and that if an integration test fails, the problem is regarding the integration itself.
+\subsubsection{Integration Order}
+
 
 \subsection{Testing}
 A Continuous integration (CI) service like Travis will be used. This service runs tests automatically when pushing code changes providing instant feedback on the code changes. Integrated with proper settings on github it also avoids the merge of code that doesn't pass tests to the master/production branch.
@@ -695,10 +702,17 @@ It's important to remind tha unit tests only test individual software components
 Infact also other type of testing are needed.
 
 \subsubsection{Integration testing}
+The main goal of integration process is to avoid as much errors as possible at each step of the process. 
+The system will incrementally integrate components as soon as they are completely developed and released.
+The Bottom-up strategy will be adopted for most of the integration process. In this way we can obtain feedbacks about system
+functionalities as soon as components are released and it's possible to parallelize integration of different parts of the system.\\
 The router component (which will be an express.js router) will be tested using Mocha and Supertest. 
 Supertest is a library written to test HTTP calls in Node.js, which is perfect to write tests for RESTful API.
 
 \subsubsection{Other types of testing}
+Once the system is completely integrated, also non-functional requirements should be tested.
+For example with security, load, performance and stress testing. \\
+The security of the system may be tested, for instance, by doing some penetration tests.
 
 \newpage
 \section{Effort spent}
@@ -717,6 +731,7 @@ Supertest is a library written to test HTTP calls in Node.js, which is perfect t
 				04/12/19 & \makebox[1.8cm][c]{4} & \makebox[6.7cm][c]{UI design}\\
 				05/12/19 & \makebox[1.8cm][c]{6} & \makebox[6.7cm][c]{UI design}\\
 				06/12/19 & \makebox[1.8cm][c]{0} & \makebox[6.7cm][c]{}\\
+				07/12/19 & \makebox[1.8cm][c]{0} & \makebox[6.7cm][c]{}\\
 				\hline
 				total    & \makebox[1.8cm][c]{31}
 			\end{tabular}
@@ -741,10 +756,12 @@ Supertest is a library written to test HTTP calls in Node.js, which is perfect t
 				04/12/19 & \makebox[1.8cm][c]{2.5} & \makebox[6.7cm][c]{Architectural design}\\
 				05/12/19 & \makebox[1.8cm][c]{4} & \makebox[6.7cm][c]{Req. traceability and Implementation}\\
 				06/12/19 & \makebox[1.8cm][c]{3} & \makebox[6.7cm][c]{Implementation and Testing}\\
+				07/12/19 & \makebox[1.8cm][c]{2} & \makebox[6.7cm][c]{Integration and Testing}\\
 				\hline
-				total    & \makebox[1.8cm][c]{30}
+				total    & \makebox[1.8cm][c]{31}
 			\end{tabular}
 	\end{center}
+\newpage
 \section{References}
 \begin{itemize}
 	\item \href{https://flutter.dev/}{Flutter}
