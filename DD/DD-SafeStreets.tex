@@ -323,7 +323,7 @@ This viewpoint consists of a set of interface specifications for each entity.
 						\end{itemize}
 					\item \textbf{Return}:
 						\begin{itemize}
-							\item reportType: ReportType
+							\item reportType: \textlangle{}ReportType\textrangle{}
 						\end{itemize}
 				\end{itemize}
 			\item \textbf{POST /report}:
@@ -360,7 +360,7 @@ This viewpoint consists of a set of interface specifications for each entity.
 					\item \textbf{Parameters}:
 						\begin{itemize}
 							\item JWT
-							\item token: String , token used for firebase
+							\item token: String \textit{token used for firebase}
 						\end{itemize}
 					\item \textbf{Return}:
 						\begin{itemize}
@@ -374,8 +374,8 @@ This viewpoint consists of a set of interface specifications for each entity.
 						\begin{itemize}
 							\item JWT
 							\item filter: List\textlangle{}ReportType\textrangle{}
-							\item from: Date , analyze data only starting from this date
-							\item to: Date , analyze data only until this date
+							\item from: Date \textit{analyze data only starting from this date}
+							\item to: Date \textit{analyze data only until this date}
 						\end{itemize}
 					\item \textbf{Return}:
 						\begin{itemize}
@@ -389,12 +389,12 @@ This viewpoint consists of a set of interface specifications for each entity.
 						\begin{itemize}
 							\item JWT
 							\item filter: List\textlangle{}ReportType\textrangle{}
-							\item from: Date , analyze data only starting from this date
-							\item to: Date , analyze data only until this date
+							\item from: Date \textit{analyze data only starting from this date}
+							\item to: Date \textit{analyze data only until this date}
 						\end{itemize}
 					\item \textbf{Return}:
 						\begin{itemize}
-							\item ranking: List\textlangle{}String\textrangle{} , ordered list of license plate
+							\item ranking: List\textlangle{}String\textrangle{} \textit{ordered list of license plate}
 						\end{itemize}
 				\end{itemize}
 			\item \textbf{GET /suggestion}:
@@ -427,7 +427,7 @@ This viewpoint consists of a set of interface specifications for each entity.
 					\item \textbf{Parameters}:
 						\begin{itemize}
 							\item JWT
-							\item id: int , this is the id of the report
+							\item id: int \textit{this is the id of the report}
 						\end{itemize}
 					\item \textbf{Return}:
 						\begin{itemize}
@@ -441,7 +441,7 @@ This viewpoint consists of a set of interface specifications for each entity.
 					\item \textbf{Parameters}:
 						\begin{itemize}
 							\item JWT
-							\item id: int , this is the id of the report
+							\item id: int \textit{this is the id of the report}
 						\end{itemize}
 					\item \textbf{Return}:
 						\begin{itemize}
@@ -455,7 +455,7 @@ This viewpoint consists of a set of interface specifications for each entity.
 					\item \textbf{Parameters}:
 						\begin{itemize}
 							\item JWT
-							\item id: int , this is the id of the report
+							\item id: in \textit{this is the id of the report}
 						\end{itemize}
 					\item \textbf{Return}:
 						\begin{itemize}
@@ -469,8 +469,8 @@ This viewpoint consists of a set of interface specifications for each entity.
 					\item \textbf{Parameters}:
 						\begin{itemize}
 							\item JWT
-							\item longitude: int
-							\item latitude: int
+							\item longitude: double
+							\item latitude: double
 						\end{itemize}
 					\item \textbf{Return}:
 						\begin{itemize}
@@ -481,43 +481,208 @@ This viewpoint consists of a set of interface specifications for each entity.
 	\item \textbf{Authenticator}:
 		\begin{itemize}
 			\item \textbf{checkAuth()}:
+				Check if the JWT is correct
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item JWT
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item true \textit{if the JWT is valid}
+							\item false \textit{if the JWT is invalid}
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{login()}:
+				Return the JWT for the user
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item email: String
+							\item password: String
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item true \textit{if the JWT is valid}
+							\item false \textit{if the JWT is invalid}
+						\end{itemize}
+				\end{itemize}
 		\end{itemize}
 	\item \textbf{ReportManager}:
 		\begin{itemize}
 			\item \textbf{sendNotification()}:
+				Send a notification to the nearest traffic warden
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item longitude: double
+							\item latitude: double
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{getReportTypes()}:
+				Get all the reports' types
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item none
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item reportType: \textlangle{}ReportType\textrangle{}
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{saveReport()}:
+				Save the report 
+			\begin{itemize}
+				\item \textbf{Parameters}:
+					\begin{itemize}
+						\item report: Report
+					\end{itemize}
+				\item \textbf{Return}:
+					\begin{itemize}
+						\item Ok 		\textit{if report is saved}
+						\item invalid 	\textit{if report is invalid}
+						\item report already exist \textit{if similar report already exists}
+					\end{itemize}
+			\end{itemize}
 			\item \textbf{getReportList()}:
+				Get the list of report
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item filter: List\textlangle{}ReportType\textrangle{}
+							\item from: Date \textit{analyze data only starting from this date}
+							\item to: Date \textit{analyze data only until this date}
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item areas: List\textlangle{}Report\textrangle{}
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{getOpenReports()}:
+				Get all the open report
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item none
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item areas: List\textlangle{}Report\textrangle{}
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{validateReport()}:
+				Set the report to Valid
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item report: Report
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{unvalidateReport()}:
+				Set the report to Inalid
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item report: Report
+						\end{itemize}
+				\end{itemize}
 		\end{itemize}
 	\item \textbf{Area-Highlighter}: 
 		\begin{itemize}
 			\item \textbf{getHighlightedArea()}:
+				Get the area with more violation
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item filter: List\textlangle{}ReportType\textrangle{}
+							\item from: Date \textit{analyze data only starting from this date}
+							\item to: Date \textit{analyze data only until this date}
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item areas: List\textlangle{}Area\textrangle{}
+						\end{itemize}
+				\end{itemize} 
 		\end{itemize}
 	\item \textbf{RankingManager}: 
 		\begin{itemize}
 			\item \textbf{getRanking()}:
+			Get the ranking of the license plate that committed more violation
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item filter: List\textlangle{}ReportType\textrangle{}
+							\item from: Date \textit{analyze data only starting from this date}
+							\item to: Date \textit{analyze data only until this date}
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item ranking: List\textlangle{}String\textrangle{} \textit{ordered list of license plate}
+						\end{itemize}
+				\end{itemize}	
 		\end{itemize}
 	\item \textbf{NotificationManager}:
 		\begin{itemize}
 			\item \textbf{sendNotification()}:
+				Send a notification to the nearest traffic warden
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item longitude: double
+							\item latitude: double
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{subscribe()}:
-		\end{itemize}
+			Subscribe to recive notification for new report (only user defined as traffic warden can access)
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item token: String \textit{token used for firebase}
+						\end{itemize}
+				\end{itemize}
+			\end{itemize}
 	\item \textbf{ALPR}:
 		\begin{itemize}
 			\item \textbf{recognizeLicensePlate()}:
+			Return the license plate recognized in the picture
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item image: ByteStream
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item licensePlate: String
+						\end{itemize}
+				\end{itemize}
 		\end{itemize}
 	\item \textbf{SuggestionSubsystem}: More in detail:
 	\item \textbf{SuggestionDisplayer}:
 		\begin{itemize}
 			\item \textbf{getSuggestion()}:
+			Get the suggestions (only user defined as municipality can access)
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item none
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item suggestions: List\textlangle{}Suggestion\textrangle{}
+						\end{itemize}
+				\end{itemize}
 		\end{itemize}
 	\item \textbf{SuggestionMiner}:
 		\begin{itemize}
 			\item \textbf{start()}:
+			Start mine data to create suggestion
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item none
+						\end{itemize}
+				\end{itemize}
 		\end{itemize}
 \end{itemize}
 
