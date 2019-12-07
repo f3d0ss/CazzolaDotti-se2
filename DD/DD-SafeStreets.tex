@@ -314,17 +314,168 @@ This viewpoint consists of a set of interface specifications for each entity.
 	\item \textbf{Router}:
 		\begin{itemize}
 			\item \textbf{GET /report/type}:
+				Get all the reports' types
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item none
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item reportType: ReportType
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{POST /report}:
+				Post a new report
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item JWT
+							\item report: Report
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item 201: created
+							\item 401: report invalid
+							\item 409: report already exist
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{POST /login}:
+				Log in
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item email: String
+							\item password: String
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item JWT
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{POST /subscribe}:
+				Subscribe to recive notification for new report (only user defined as traffic warden can access)
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item JWT
+							\item token: String , token used for firebase
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item 200
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{GET /highlight-area}:
+				Get the area with more violation
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item JWT
+							\item filter: List<ReportType>
+							\item from: Date , analyze data only starting from this date
+							\item to: Date , analyze data only until this date
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item areas: List<Area>
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{GET /ranking}:
+				Get the ranking of the license plate that committed more violation
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item JWT
+							\item filter: List<ReportType>
+							\item from: Date , analyze data only starting from this date
+							\item to: Date , analyze data only until this date
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item ranking: List<String> , ordered list of license plate
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{GET /suggestion}:
+				Get the suggestions (only user defined as municipality can access)
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item JWT
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item suggestions: List<Suggestion>
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{GET /report/open}:
+				Get all the open reports (only user defined as traffic warden can access)
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item JWT
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item reports: List<Report>
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{PUT /report/:id/take-on}:
+				Assign traffic warden calling this function to the report (only user defined as traffic warden can access)
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item JWT
+							\item id: int , this is the id of the report
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item 200 Ok
+							\item 409 Already took on
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{PUT /report/:id/valid}:
+				Set the report as valid (only user defined as traffic warden can access)
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item JWT
+							\item id: int , this is the id of the report
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item 200 Ok
+							\item 409 Already validate/invalidate
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{PUT /report/:id/invalid}:
+				Set the report as invalid (only user defined as traffic warden can access)
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item JWT
+							\item id: int , this is the id of the report
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item 200 Ok
+							\item 409 Already validate/invalidate
+						\end{itemize}
+				\end{itemize}
 			\item \textbf{POST /location}:
+				Send your location for notification process (only user defined as traffic warden can access)
+				\begin{itemize}
+					\item \textbf{Parameters}:
+						\begin{itemize}
+							\item JWT
+							\item longitude: int
+							\item latitude: int
+						\end{itemize}
+					\item \textbf{Return}:
+						\begin{itemize}
+							\item 200
+						\end{itemize}
+				\end{itemize}
 		\end{itemize}
 	\item \textbf{Authenticator}:
 		\begin{itemize}
