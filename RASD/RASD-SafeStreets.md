@@ -55,7 +55,7 @@
 
 <a name="1.1"></a>
 ## 1.1 Purpose
-This document represents the Requirement Analysis and Specification Document (RASD). Goals of this document are to completely describe the system in terms of functional and non-functional requirements, analyze the real needs of the customer in order to model the system, show the constraints and the limit of the software and indicate the typical use cases that will occur after the release. This document is addressed to the developers who have to implement the requirements and could be used as a contractual basis.
+This document is the Requirement Analysis and Specification Document (RASD). Goals of this document are to completely describe the system in terms of functional and non-functional requirements, analyze the real needs of the customer in order to model the system, show the constraints and the limit of the software and indicate the typical use cases that will occur after the release. This document is addressed to the developers who have to implement the requirements and could be used as a contractual basis.
 ### 1.1.2
 The goals of the projects are:
 <a name="G1"></a>
@@ -76,13 +76,13 @@ Furthermore thanks to the increased number of ticket the municipality will have 
 
 <a name="1.3"></a>
 ## 1.3 Definitions, Acronyms, Abbreviations
+- **Mine**: to process data for obtaining new data
+- **Violation**: an infringement of the rules
+- **Unsafe area**: area where often happen violation and accident
 - **FOSS**: free and open source software
 - **S2B**: software to be
 - **RASD**: Requirements Analysis and Specifications Document  
 - **DD**: Design Document
-- **Mine**: to process data for obtaining new data
-- **Violation**: an infringement of the rules
-- **Unsafe area**: area where often happen violation and accident
 - **API**: Application programming interface
 - **NIST**: National Institute of Standards and Technology
 - **RFC**: Request for Comments
@@ -93,6 +93,8 @@ Furthermore thanks to the increased number of ticket the municipality will have 
  Inital version
  - **Version 1.1** <br>
    Update diagrams and shared phenomenon table <br>
+ - **Version 1.2** <br>
+   Minor fix in the alloy model <br>
 
 <a name="1.5"></a>
 ## 1.5 Reference Documents
@@ -116,7 +118,7 @@ The non-functional requirements are defined through performance requirements, de
 <a name="2.1"></a>
 ## 2.1 Product perspective
 
-The following high level class diagram provides a model of the application domain: it contains only few essential attributes of the various classes and does not include every class that will be necessary to define the Model (useful data) of the system.
+The following high level class diagram provides a model of the application domain: it contains only few essential attributes of the various classes and may not include every class that will be necessary to define the Model (useful data) of the system.
 
 ![Uml](images/class-diagram.png)
 
@@ -156,7 +158,7 @@ This is the main function of the system: The software will allow users to notify
 The S2B must gather all the reports of the parking violation and elaborate them with an algorithm to highlighting the streets (or the areas) with the highest frequency of violations, or the vehicles that commit the most violations. The system will allow only police officers to access some kind of data (e.g. information about a specific vehicle), while more generic data will be available for every user.
 
 ### Suggest interventions
-The S2B must gather information about accidents that the municipality will provide and cross them with his parking violation reports to generate new data about potentially unsafe area. Those potentially unsafe area will be sent to the municipality which will take action.
+The S2B must gather information about accidents that the municipality will provide and cross them with his parking violation reports to generate new data about potentially unsafe area. Those potentially unsafe areas and the suggestions for possibile interventions (elaborated by an algorithm), will be made available for the municipality's clerks, which may use those suggestion to take actions.
 
 <a name="2.3"></a>
 ## 2.3. User characteristics
@@ -164,11 +166,12 @@ The S2B must gather information about accidents that the municipality will provi
 ### 1. User
 Common citizen who signs up to use the SafeStreet service. There are no constraints or age limitations, anyone can join.
 The user is a person who use the app to report a parking violation.
+
 ### 2. Traffic Warden
-A police officer. The sign up process is made in collaboration with the authorities to guarantee their identity. He has to verify the violation.
+A police officer. The sign up process is made in collaboration with the authorities to guarantee their identity. He has to take on and verify the violations. Also he can access the ranking of vehicles that commited violations.
 
 ### 3. Municipality's clerk
-Certified municipality's clerk who can access the suggestion for possible interventions.
+Certified municipality's clerk who can access the suggestions for possible interventions.
 
 <a name="2.4"></a>
 ## 2.4 Assumptions, dependencies and constraints
@@ -205,7 +208,7 @@ The various components communicate via the internet.
 ### 3.2.1 Scenarios:
 
 - ### Scenario 1  
-  Marco is tired of people parking on the sidewalk near his shop, so instead of shouting or starting a discussion with the violator, he decides to report the violation to SafeStreet using the application on his smartphone. He takes a photo of the violation and sends it, a lot better than calling emergency number to only report a parking violation.
+  Marco is tired of people parking on the sidewalk near his shop, so instead of shouting or starting a discussion with the violator, he decides to report the violation to SafeStreet using the application on his smartphone. He takes a photo of the violation and sends it, a lot better than calling emergency number only to report a parking violation.
 
 - ### Scenario 2  
   The budget of the municipality of Milan is negative, therefore, Omar, mayor of Milan, needs to find a way to raise more money. After a meeting with the head of the municipal police, who wants to improve his operate, he learns about SafeStreets and decides to adopt it in his city. Thanks to the application the traffic wardens will be more efficient and the number of traffic tickets should increase accordingly.
@@ -433,22 +436,18 @@ explained in more details, in particular the focus is on the following constrain
 
 
 ```alloy
---signatures---------------------------------------------------------
+--signatures
 
 sig FiscalCode{}
-sig Matricula{}
 sig Username{}
 sig Password{}
-abstract sig User{
+sig User{
     username: one Username,
-    password: one Password
-}
-sig Citizen extends User{
+    password: one Password,
     fiscalCode: one FiscalCode
 }
 
 sig TrafficWarden extends User{
-    matricula: one Matricula
 }
 
 sig Location{
@@ -475,29 +474,26 @@ sig ParkingReport{
     violationPicture: one ViolationPicture,
     timestamp: one Int,
     parkingLocation: one Location,
-    citizen: one Citizen,
+    user: one User,
     takeOnBy: lone TrafficWarden,
     status: one ParkingReportStatus
 }
 { timestamp >= 0 }
 
-sig Message{}
+sig Description{}
+sig Reason{}
 
 sig Suggestion{
     suggestionLocation: one Location,
-    message: one Message
+    description: one Description,
+    reason: one Reason
 }
 
---Facts--------------------------------------------------------
+--facts
 
---All FiscalCodes have to be associated to a Citizen
-fact FiscalCodeCitizenConnection{
-    all fc: FiscalCode | some c: Citizen | fc in c.fiscalCode
-}
-
---All Matricola have to be associated to a TrafficWarden
-fact MatricolaTrafficWardenConnection{
-    all m: Matricula | some tw: TrafficWarden | m in tw.matricula
+--All FiscalCodes have to be associated to a User
+fact FiscalCodeUserConnection{
+    all fc: FiscalCode | some c: User | fc in c.fiscalCode
 }
 
 --All Usernames have to be associated to a User
@@ -525,12 +521,7 @@ fact NoParkingReportWithin1HourInTheSameLocation {
 
 --Every User has a unique FiscalCode
 fact NoSameFiscalCode {
-    no disj c1,c2 : Citizen | c1.fiscalCode = c2.fiscalCode
-}
-
---Every TrafficWarden has a unique Matricula
-fact NoSameMatricula {
-    no disj t1,t2 : TrafficWarden | t1.matricula = t2.matricula
+    no disj c1,c2 : User | c1.fiscalCode = c2.fiscalCode
 }
 
 --All LicensePlate have to be associated to a ParkingReport
@@ -543,9 +534,14 @@ fact ViolationPictureParkingReportConnection{
     all vp: ViolationPicture | some pr: ParkingReport | vp in pr.violationPicture
 }
 
---All Message have to be associated to a Suggestion
-fact MessageSuggestionConnection{
-    all m: Message | some s: Suggestion | m in s.message
+--All Description have to be associated to a Suggestion
+fact DescriptionSuggestionConnection{
+    all d: Description | some s: Suggestion | d in s.description
+}
+
+--All Reason have to be associated to a Suggestion
+fact ReasonSuggestionConnection{
+    all b: Reason | some s: Suggestion | b in s.reason
 }
 
 --All Location have to be associated to a Suggestion or a ParkingReport
@@ -582,26 +578,25 @@ assert noParkingReportOnSameVehicleWithinAnHourInTheSameLocation {
 --check noParkingReportOnSameVehicleWithinAnHourInTheSameLocation for 3
 
 
--- Predicates-------------------------------------------------
-
+-- Predicates
 pred world1	{
-    #ParkingReport	=	1
+    #ParkingReport	= 1
     #TrafficWarden = 1
-    #Citizen = 1
+    #User = 2
     #Suggestion = 0
 }
 
 pred world2	{
     #ParkingReport	=	1
     #TrafficWarden = 0
-    #Citizen = 1
+    #User = 1
     #Suggestion = 0
 }
 
 pred world3	{
     #ParkingReport	= 0
     #TrafficWarden = 0
-    #Citizen = 0
+    #User = 0
     #Suggestion = 1
 }
 
@@ -613,14 +608,14 @@ run world3 for 3
 ## Worlds generated
 
 - ### World 1
-![World 1](images/alloy_world1.jpg)
+![World 1](images/world1.png)
 
 - ### World 2
 In this world without traffic wardens, parking report status can only be pending. None can take on the requests.
-![World 1](images/alloy_world2.jpg)
+![World 1](images/world2.png)
 
 - ### World 3
-![World 1](images/alloy_world3.jpg)
+![World 1](images/world3.png)
 
 <a name="5"></a>
 # 5 EFFORT SPENT 
@@ -629,8 +624,12 @@ The statistics about commits and code contribution are available on GitHub howev
 
 - ###   10530016    Federico Cazzola ([@f-cazzola](https://github.com/f-cazzola))<br>federico.cazzola@mail.polimi.it
 
-    27 hours
+    27 hours (version 1.0) <br>
+     1 hour  (version 1.1) <br>
+     2 hours (version 1.2) <br>
 
 - ###   10530612    Francesco Dotti ([@dottif](https://github.com/dottif))<br>francesco3.dotti@mail.polimi.it
 
-    29 hours
+    28 hours (version 1.0) <br>
+     1 hour  (version 1.1) <br>
+     2 hours (version 1.2) <br>

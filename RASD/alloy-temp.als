@@ -3,7 +3,7 @@
 sig FiscalCode{}
 sig Username{}
 sig Password{}
-abstract sig User{
+sig User{
     username: one Username,
     password: one Password,
     fiscalCode: one FiscalCode
@@ -43,12 +43,12 @@ sig ParkingReport{
 { timestamp >= 0 }
 
 sig Description{}
-sig Because{}
+sig Reason{}
 
 sig Suggestion{
     suggestionLocation: one Location,
     description: one Description,
-    because: one Because
+    reason: one Reason
 }
 
 --facts
@@ -86,12 +86,6 @@ fact NoSameFiscalCode {
     no disj c1,c2 : User | c1.fiscalCode = c2.fiscalCode
 }
 
-
---Every TrafficWarden has a unique Matricula
-fact NoSameMatricula {
-    no disj t1,t2 : TrafficWarden | t1.matricula = t2.matricula
-}
-
 --All LicensePlate have to be associated to a ParkingReport
 fact LicensePlateParkingReportConnection{
     all lp: LicensePlate | some pr: ParkingReport | lp in pr.licensePlate
@@ -107,9 +101,9 @@ fact DescriptionSuggestionConnection{
     all d: Description | some s: Suggestion | d in s.description
 }
 
---All Because have to be associated to a Suggestion
-fact BecauseSuggestionConnection{
-    all b: Because | some s: Suggestion | b in s.because
+--All Reason have to be associated to a Suggestion
+fact ReasonSuggestionConnection{
+    all b: Reason | some s: Suggestion | b in s.reason
 }
 
 --All Location have to be associated to a Suggestion or a ParkingReport
@@ -148,9 +142,9 @@ assert noParkingReportOnSameVehicleWithinAnHourInTheSameLocation {
 
 -- Predicates
 pred world1	{
-    #ParkingReport	=	1
+    #ParkingReport	= 1
     #TrafficWarden = 1
-    #User = 1
+    #User = 2
     #Suggestion = 0
 }
 
