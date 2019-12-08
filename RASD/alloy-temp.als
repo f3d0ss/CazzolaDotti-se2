@@ -1,19 +1,15 @@
 --signatures
 
 sig FiscalCode{}
-sig Matricula{}
 sig Username{}
 sig Password{}
 abstract sig User{
     username: one Username,
-    password: one Password
-}
-sig Citizen extends User{
+    password: one Password,
     fiscalCode: one FiscalCode
 }
 
 sig TrafficWarden extends User{
-    matricula: one Matricula
 }
 
 sig Location{
@@ -40,29 +36,26 @@ sig ParkingReport{
     violationPicture: one ViolationPicture,
     timestamp: one Int,
     parkingLocation: one Location,
-    citizen: one Citizen,
+    user: one User,
     takeOnBy: lone TrafficWarden,
     status: one ParkingReportStatus
 }
 { timestamp >= 0 }
 
-sig Message{}
+sig Description{}
+sig Because{}
 
 sig Suggestion{
     suggestionLocation: one Location,
-    message: one Message
+    description: one Description,
+    because: one Because
 }
 
 --facts
 
---All FiscalCodes have to be associated to a Citizen
-fact FiscalCodeCitizenConnection{
-    all fc: FiscalCode | some c: Citizen | fc in c.fiscalCode
-}
-
---All Matricola have to be associated to a TrafficWarden
-fact MatricolaTrafficWardenConnection{
-    all m: Matricula | some tw: TrafficWarden | m in tw.matricula
+--All FiscalCodes have to be associated to a User
+fact FiscalCodeUserConnection{
+    all fc: FiscalCode | some c: User | fc in c.fiscalCode
 }
 
 --All Usernames have to be associated to a User
@@ -90,7 +83,7 @@ fact NoParkingReportWithin1HourInTheSameLocation {
 
 --Every User has a unique FiscalCode
 fact NoSameFiscalCode {
-    no disj c1,c2 : Citizen | c1.fiscalCode = c2.fiscalCode
+    no disj c1,c2 : User | c1.fiscalCode = c2.fiscalCode
 }
 
 
@@ -109,9 +102,14 @@ fact ViolationPictureParkingReportConnection{
     all vp: ViolationPicture | some pr: ParkingReport | vp in pr.violationPicture
 }
 
---All Message have to be associated to a Suggestion
-fact MessageSuggestionConnection{
-    all m: Message | some s: Suggestion | m in s.message
+--All Description have to be associated to a Suggestion
+fact DescriptionSuggestionConnection{
+    all d: Description | some s: Suggestion | d in s.description
+}
+
+--All Because have to be associated to a Suggestion
+fact BecauseSuggestionConnection{
+    all b: Because | some s: Suggestion | b in s.because
 }
 
 --All Location have to be associated to a Suggestion or a ParkingReport
@@ -152,21 +150,21 @@ assert noParkingReportOnSameVehicleWithinAnHourInTheSameLocation {
 pred world1	{
     #ParkingReport	=	1
     #TrafficWarden = 1
-    #Citizen = 1
+    #User = 1
     #Suggestion = 0
 }
 
 pred world2	{
     #ParkingReport	=	1
     #TrafficWarden = 0
-    #Citizen = 1
+    #User = 1
     #Suggestion = 0
 }
 
 pred world3	{
     #ParkingReport	= 0
     #TrafficWarden = 0
-    #Citizen = 0
+    #User = 0
     #Suggestion = 1
 }
 
