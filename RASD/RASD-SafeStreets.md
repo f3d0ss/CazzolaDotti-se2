@@ -3,7 +3,7 @@
 
 ![Politecnico di Milano's logo](images/polimi-logo.png)
 <br>
-###### Version 1.1
+###### Version 1.2
 
 <br>
 
